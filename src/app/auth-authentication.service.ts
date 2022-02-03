@@ -8,7 +8,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 export class AuthAuthenticationService {
 
   // public userData!: Observable<firebase.User>;
-  public userData: any;
+  public userData: Observable<any>;
 
   constructor(private angularFireAuth: AngularFireAuth) {
     this.userData = angularFireAuth.authState;

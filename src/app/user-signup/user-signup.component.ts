@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthAuthenticationService } from '../auth-authentication.service';
 
 @Component({
@@ -12,8 +12,16 @@ export class UserSignupComponent implements OnInit {
   public myForm!: FormGroup;
   public email!: string;
   public password!: string;
+  public signUpEmail!: string;
+  public signUpPassword!: string;
 
-  constructor(private authenticationService: AuthAuthenticationService) { }
+
+  constructor(private authenticationService: AuthAuthenticationService, private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    })
+  }
 
 
 
@@ -24,9 +32,12 @@ export class UserSignupComponent implements OnInit {
 
 
   public signUp() {
-    this.email = 'arvind@gmail.com';
-    this.password = '1123455';
-    this.authenticationService.signUp(this.email, this.password);
+    this.signUpEmail = this.myForm.value.email;
+    this.signUpPassword = this.myForm.value.password;
+    this.authenticationService.signUp(this.signUpEmail, this.signUpPassword);
   }
 
+  get fControl() {
+    return this.myForm.controls;
+  }
 }

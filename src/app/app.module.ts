@@ -7,12 +7,14 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserLoginComponent } from './user-login/user-login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSignupComponent
+    UserSignupComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

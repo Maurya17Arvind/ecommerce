@@ -24,4 +24,12 @@ export class AuthAuthenticationService {
   }
 
 
+  public signIn(email: string, password: string) {
+    this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
+    })
+      .catch(err => {
+        console.log('Something went wrong:', err.message);
+      });
+  }
+
 }

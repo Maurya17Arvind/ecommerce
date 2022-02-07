@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="card w-50 m-3">
+    <h1 class="text-center">LogIn</h1>
+    <form [formGroup]="myForm">
+        <div class="form-group m-3">
+            <input type="text" placeholder="Enter Email Address" formControlName="email" class="form-control">
+            <div class="alert alert-danger mt-2"
+                *ngIf="fControl['email'].touched && fControl['email'].errors?.['required']">
+                Email is required
+            </div>
+            <div class="alert alert-danger mt-2" *ngIf="fControl['email'].dirty && fControl['email'].errors?.['email']">
+                Email is not valid
+            </div>
+        </div>
+        <div class="form-group m-3">
+            <input type="text" placeholder="Enter Password" formControlName="password" class="form-control">
+            <div class="alert alert-danger mt-2"
+                *ngIf="fControl['password'].touched && fControl['password'].errors?.['required']">
+                Password is required
+            </div>
+            <div class="alert alert-danger mt-2"
+                *ngIf="fControl['password'].dirty && fControl['password'].errors?.['minlength']">
+                Password is length 6
+            </div>
+        </div>
+        <div class="form-group m-3 text-center">
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </div>
+    </form>
+</div>

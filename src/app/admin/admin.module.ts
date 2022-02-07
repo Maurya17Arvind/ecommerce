@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AddItemsComponent } from './add-items/add-items.component';
 import { ViewItemsComponent } from './view-items/view-items.component';
 import { UpdateItemComponent } from './update-item/update-item.component';
+import { HeaderComponent } from '../core/header/header.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UpdateItemComponent } from './update-item/update-item.component';
     LoginComponent,
     AddItemsComponent,
     ViewItemsComponent,
-    UpdateItemComponent
+    UpdateItemComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

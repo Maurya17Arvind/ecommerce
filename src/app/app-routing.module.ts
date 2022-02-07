@@ -6,11 +6,15 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
 const routes: Routes = [
   {
     path: '',
-    component: UserSignupComponent
+    loadChildren: () => import('./core/core.module').then((m) => m.CoreModule)
   },
   {
-    path: 'login',
-    component: UserLoginComponent
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule)
+  },
+  {
+    path: 'customer',
+    loadChildren: () => import('./customer/customer.module').then((m) => m.CustomerModule)
   }
 ];
 

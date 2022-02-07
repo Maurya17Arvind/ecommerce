@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authenticationService: AuthAuthenticationService) {
     this.myForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['arvindadmin@gmail.com', [Validators.required, Validators.email]],
+      password: ['123456', [Validators.required, Validators.minLength(6)]]
     })
   }
 
@@ -23,8 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
 
-  signIn() {
-    this.authenticationService.signIn(this.email, this.password);
+  public signIn(): void {
+    this.email = this.myForm.value.email;
+    this.password = this.myForm.value.password;
+    this.authenticationService.logIn(this.email, this.password);
   }
 
   get fControl() {

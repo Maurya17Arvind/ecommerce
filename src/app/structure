@@ -23,6 +23,101 @@
         - search component
         - cart component
         - view all items component
-            - view items component
             - view items detail component
         - payment component
+
+
+const routes: Routes = [
+    {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+    {
+    path: 'login',
+    component: LogInComponent
+  },
+  {
+    path: 'add-items',
+    component: AddItemsComponent
+  },
+  {
+    path: 'view-items',
+    component: ViewItemsComponent
+  },
+  {
+      path: 'update-item',
+      component: UpdateItemsComponent
+  },
+  {
+      path: 'update-item/:id',
+      component: UpdateItemComponent
+  }
+  {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.module').then((m)=>m.OrdersModule)
+  },
+  {
+      path: '**',
+      redirectTo: 'dashboard'
+  }
+];
+
+Orders routes
+
+const routes: Routes = [
+    {
+        path: 'complete-orders',
+        component: CompleteOrdersComponent
+    },
+    {
+        path: 'pending-orders',
+        component: PendingOrdersComponent
+    },
+    {
+        path : 'return-orders',
+        component: ReturnOrdersComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'complete-orders'
+    }
+];
+
+
+
+Customer routes
+const routes: Routes = [
+    {
+        path: 'dashboard',
+        component: DashboardComponent
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent
+    },
+    {
+        path: 'my-orders',
+        component: MyOrdersComponent
+    },
+    {
+        path: 'cart',
+        component: CartComponent
+    },
+    {
+        path: 'view-all-items',
+        component: ViewAllItemsComponent,
+        children: [
+                    {
+                        path:  'view-item-details',
+                        component: ViewItemDetailsComponent
+                    }]
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'dashboard'
+    }
+];

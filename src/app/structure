@@ -51,7 +51,7 @@ const routes: Routes = [
   {
       path: 'update-item/:id',
       component: UpdateItemComponent
-  }
+  },
   {
     path: 'orders',
     loadChildren: () => import('./orders/orders.module').then((m)=>m.OrdersModule)

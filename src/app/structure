@@ -1,0 +1,28 @@
+-app
+    - service
+        - auth-service
+    - core module 
+        - header component
+        - footer component
+        - interface folder
+            - admin.interface 
+            - customer.interface
+    - admin module
+        - dashboard component
+        - add Items component
+        - view all items component
+        - update items component
+        - All orders module
+            - completed orders component
+            - pending orders component
+            - return orders component
+    - customer module
+        - dashboard component
+        - profile component
+        - orders component
+        - search component
+        - cart component
+        - view all items component
+            - view items component
+            - view items detail component
+        - payment component

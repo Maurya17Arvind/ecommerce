@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-items',
@@ -9,8 +10,10 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 export class ViewItemsComponent implements OnInit {
 
   public products: any;
+  key: any;
+  detProduct: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private activatedRoute: ActivatedRoute) {
     // this.products = db.list('/products').valueChanges();
     // this.products.subscribe((products: any) => {
     //   this.allProducts = products;
@@ -25,11 +28,15 @@ export class ViewItemsComponent implements OnInit {
           push_key: key
         }
       });
-      console.log('this.products', this.products);
     });
   }
 
   ngOnInit(): void {
   }
 
+
+  public deleteProduct(key: any) {
+    this.detProduct = this.db.database.ref('/products/' + key);
+    this.detProduct.remove();
+  }
 }

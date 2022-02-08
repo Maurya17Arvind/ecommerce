@@ -7,13 +7,13 @@ import { ViewItemsComponent } from './view-items/view-items.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: DashboardComponent
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent
   },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
   {
     path: 'add-items',
     component: AddItemsComponent

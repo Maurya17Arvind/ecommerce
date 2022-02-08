@@ -40,4 +40,15 @@ export class ProductService {
       this.productsData = data.val();
     });
   }
+
+
+  public addToCart(productDetails: any): void {
+    const customerID = localStorage.getItem('customerId');
+    const cartRef = this.db.database.ref('/carts')
+    const data = {
+      ...productDetails,
+      customerID: customerID
+    }
+    cartRef.push(data);
+  }
 }

@@ -5,9 +5,10 @@
             <td></td>
             <td>{{product.returnTime}}</td>
         </tr> -->
-<div class="container-fluid d-flex justify-content-between flex-wrap">
-    <div class="card custom-card-hover" style="width: 18rem;" *ngFor="let product of products; let i=index">
-        <div class="card-body">
+<div class="container-fluid d-flex flex-wrap">
+    <div class="row card custom-card-hover d-flex flex-wrap m-3" *ngFor="let product of products; let i=index">
+        <div class="col-sm-4">
+            <img class="custom-width" src="../assets/book1.jpg" alt="book Image">
             <h5 class="card-title">{{product.itemName}}</h5>
             <p class="card-text">{{product.price | currency:'INR'}}</p>
             <a href="#" class="btn btn-primary" [routerLink]="['/customer/product-details/'+product.push_key]">View

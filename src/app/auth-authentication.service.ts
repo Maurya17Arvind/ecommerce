@@ -40,10 +40,8 @@ export class AuthAuthenticationService {
 
   public logIn(email: string, password: string): void {
     this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      // console.log('res', res);
       let allData = this.db.database.ref('/users');
       allData.on('value', (data: any) => {
-        // console.log('data.val()', data.val());
         this.data1 = Object.keys(data.val()).map(key => {
           return {
             ...data.val()[key],
@@ -52,13 +50,14 @@ export class AuthAuthenticationService {
         });
         // console.log('data1', this.data1);
         const data2 = this.data1.find((e: any) => e.email == email);
-        // console.log('data2', data2.role);
-
+        console.log('data2', data2);
         if (data2.role === 'customer') {
           this.router.navigate(['customer']);
+          // this.toaster.success('Login Successfully');
         }
         else {
           this.router.navigate(['admin']);
+          // this.toaster.success('Login Successfully');
         }
       });
     })
@@ -77,5 +76,10 @@ export class AuthAuthenticationService {
   //   }
   //   items.push(item);
   // }
+
+
+  public updateProduct(product: any) {
+
+  }
 
 }

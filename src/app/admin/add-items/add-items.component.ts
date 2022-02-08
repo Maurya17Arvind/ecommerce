@@ -36,6 +36,7 @@ export class AddItemsComponent implements OnInit {
     items.push(this.myForm.value);
     console.log('items', items);
     // this.toaster.success('Add item Successfuly...');
+    this.myForm.reset();
   }
 
 }

@@ -35,7 +35,7 @@ export class ViewItemsComponent implements OnInit {
   }
 
 
-  public deleteProduct(key: any) {
+  public deleteProduct(key: string) {
     this.detProduct = this.db.database.ref('/products/' + key);
     this.detProduct.remove();
   }

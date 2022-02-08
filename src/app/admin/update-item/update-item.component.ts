@@ -22,22 +22,20 @@ export class UpdateItemComponent implements OnInit {
     this.updateProduct.on('value', (data: any) => {
       this.updateData = data.val();
       console.log('updateData', this.updateData);
-    })
-    // console.log('this.key', this.key);
+    });
     this.myForm = this.fb.group({
       itemName: [this.updateData.itemName],
       price: [this.updateData.price],
       returnTime: [this.updateData.returnTime]
-    })
+    });
 
   }
 
   ngOnInit(): void {
   }
 
-
   public updateItem(): void {
     this.updateProduct.update(this.myForm.value);
-    this.router.navigate(['/view-items']);
+    this.router.navigate(['/admin/view-items']);
   }
 }

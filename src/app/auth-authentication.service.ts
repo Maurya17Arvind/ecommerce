@@ -13,6 +13,7 @@ export class AuthAuthenticationService {
   // public userData!: Observable<firebase.User>;
   public userData: Observable<any>;
   public data1: any;
+  public item: string[] = [];
 
   constructor(private angularFireAuth: AngularFireAuth, private db: AngularFireDatabase, private toaster: ToastrService, private router: Router) {
     this.userData = angularFireAuth.authState;
@@ -48,9 +49,9 @@ export class AuthAuthenticationService {
             push_key: key
           }
         });
-        // console.log('data1', this.data1);
+        console.log('data1', this.data1);
         const data2 = this.data1.find((e: any) => e.email == email);
-        console.log('data2', data2);
+        localStorage.setItem('customerId', data2.push_key);
         if (data2.role === 'customer') {
           this.router.navigate(['customer']);
           // this.toaster.success('Login Successfully');
@@ -78,8 +79,22 @@ export class AuthAuthenticationService {
   // }
 
 
-  public updateProduct(product: any) {
+  // public updateProduct(product: any) {
 
+  // }
+
+
+  public addToCart(): void {
+    let allData = this.db.database.ref('/users');
+    allData.on('value', (data: any) => {
+      this.data1 = Object.keys(data.val()).map(key => {
+        return {
+          ...data.val()[key],
+          push_key: key
+        }
+      });
+      const data2 = this.data1.find((e: any) => e.push_key);
+      console.log('data2', data2.push_key);
+    });
   }
-
 }

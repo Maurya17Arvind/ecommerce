@@ -1,1 +1,14 @@
-<p>product-details works!</p>
+<div class="container-fluid">
+    <div class="m-3">
+        <button class="btn btn-primary" routerLink="/customer">Go Back</button>
+    </div>
+    <div class="card custom-card-hover">
+        <div class="card-body">
+            <img class="custom-width" src="../assets/book1.jpg" alt="book Image">
+            <h5 class="card-title">Product Name:- {{productsData?.itemName || ''}}</h5>
+            <p class="card-text">Price:- {{productsData?.price | currency:'INR' ||''}}</p>
+            <p class="card-title">Return Time:- {{productsData?.returnTime || ''}}</p>
+            <a class="btn btn-outline-primary">Add To Cart</a>
+        </div>
+    </div>
+</div>

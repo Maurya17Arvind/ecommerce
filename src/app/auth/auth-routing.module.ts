@@ -18,6 +18,14 @@ const routes: Routes = [
     component: SignUpComponent
   },
   {
+    path: 'admin',
+    loadChildren: () => import('../admin/admin.module').then((m) => m.AdminModule)
+  },
+  {
+    path: 'customer',
+    loadChildren: () => import('../customer/customer.module').then((m) => m.CustomerModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

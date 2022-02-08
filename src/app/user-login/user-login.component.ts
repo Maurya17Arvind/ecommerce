@@ -1,33 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthAuthenticationService } from '../auth-authentication.service';
+// import { Component, OnInit } from '@angular/core';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { AuthAuthenticationService } from '../auth-authentication.service';
 
-@Component({
-  selector: 'app-user-login',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
-})
-export class UserLoginComponent implements OnInit {
+// @Component({
+//   selector: 'app-user-login',
+//   templateUrl: './user-login.component.html',
+//   styleUrls: ['./user-login.component.scss']
+// })
+// export class UserLoginComponent implements OnInit {
 
-  public myForm!: FormGroup;
-  public email!: string;
-  public password!: string;
+//   public myForm!: FormGroup;
+//   public email!: string;
+//   public password!: string;
 
-  constructor(private fb: FormBuilder, private authenticationService: AuthAuthenticationService ) {
-    this.myForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    })
-  }
+//   constructor(private fb: FormBuilder, private authenticationService: AuthAuthenticationService ) {
+//     this.myForm = this.fb.group({
+//       email: ['', [Validators.required, Validators.email]],
+//       password: ['', [Validators.required, Validators.minLength(6)]]
+//     })
+//   }
 
-  ngOnInit(): void {
-  }
+//   ngOnInit(): void {
+//   }
 
-  signIn() {
-    this.authenticationService.signIn(this.email, this.password);
-  }
+//   signIn() {
+//     this.authenticationService.signIn(this.email, this.password);
+//   }
 
-  get fControl() {
-    return this.myForm.controls;
-  }
-}
+//   get fControl() {
+//     return this.myForm.controls;
+//   }
+// }

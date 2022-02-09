@@ -1,1 +1,56 @@
-<p>cart works!</p>
+<div class="m-3 container-fluid">
+    <!-- <div>
+        <button class="btn btn-primary" routerLink="/admin">Go Back</button>
+    </div> -->
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <h4>My Cart</h4>
+                    </div>
+                    <div>Deliver to</div>
+                </div>
+                <div class="card-body d-flex" *ngFor="let cart of filterCart">
+                    <div class="col-sm-3">
+                        <img class="custom-width" src="../assets/book1.jpg" alt="">
+                        <div class="d-flex mt-2">
+                            <div class="board">
+                                <h4 (click)="decriment()">-</h4>
+                            </div>
+                            <div class="board-qyt">
+                                <h4>{{qyt}}</h4>
+                            </div>
+                            <div class="board">
+                                <h4 (click)="incriment()">+</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <p>{{cart.itemName}}</p>
+                        <p>{{cart.price *qyt| currency:'INR'}}</p>
+                        <h5>REMOVE</h5>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>Delivery by </p>
+                        <p>{{cart.returnTime}} Day Replacement Policy</p>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-end">
+                    <button class="btn btn-primary">Place Order</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header">Price Details</h5>
+                <div class="card-body">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

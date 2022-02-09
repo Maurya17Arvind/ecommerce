@@ -14,6 +14,10 @@ export class CartComponent implements OnInit {
   public filterCart: any;
   public qyt: number = 1;
   public idCart: any;
+  public detProduct: any;
+  tremdata: any;
+  public changedCartData: any;
+  public ownCartData: any;
 
   constructor(private productService: ProductService, private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/carts');
@@ -25,7 +29,7 @@ export class CartComponent implements OnInit {
         }
       });
       this.filterCart = this.carts.filter((e: any) => e.customerID == localStorage.getItem('customerId'));
-      console.log('this.cart', this.carts[0].cartId);
+      // console.log('this.cart', this.filterCart);
     });
   }
 
@@ -33,20 +37,44 @@ export class CartComponent implements OnInit {
   }
 
 
-  public incriment(): void {
-    this.idCart = this.carts[0].cartId;
-    const cartQyt = this.db.database.ref('/cart' + this.idCart)
-    this.qyt = this.qyt + 1;
-    // cartQyt.update(this.qyt);
-    console.log('this.qyt', this.qyt);
-    console.log('first', cartQyt);
+  public deleteCart(key: string) {
+    this.detProduct = this.db.database.ref('/carts/' + key);
+    this.detProduct.remove();
   }
 
-  public decriment(): void {
-    if (this.qyt === 1) {
-      this.qyt;
-    } else {
-      this.qyt = this.qyt - 1;
+  public changeQty(cartId: string, operation: string): void {
+    this.changedCartData = this.filterCart.find(
+      (e: any) => e.cartId == cartId
+    );
+    console.log('this.changedcartData', this.changedCartData);
+    const refPath = this.db.database.ref('/carts/' + cartId);
+
+    const commonData = {
+      cartId: this.changedCartData.cartId,
+      customerID: this.changedCartData.customerID,
+      itemName: this.changedCartData.itemName,
+      price: this.changedCartData.price,
+      product_id: this.changedCartData.product_id,
+      returnTime: this.changedCartData.returnTime
     }
+    if (operation === 'add') {
+      const dataObject = {
+        ...commonData,
+        finalPrice: this.changedCartData.price * (this.changedCartData.qty + 1),
+        qty: this.changedCartData.qty + 1,
+      }
+      refPath.update(dataObject);
+      console.log('dataObject', dataObject)
+    }
+    else {
+      const dataObject = {
+        ...commonData,
+        finalPrice: this.changedCartData.price * (this.changedCartData.qty - 1),
+        qty: this.changedCartData.qty - 1
+      }
+      refPath.update(dataObject);
+      console.log('dataObject', dataObject)
+    }
+
   }
 }

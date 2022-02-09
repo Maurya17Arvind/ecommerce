@@ -12,30 +12,36 @@ import { ProductService } from '../customer-service/product.service';
 export class ProductDetailsComponent implements OnInit {
 
   public key!: string;
-  product: any;
-  productsData: any;
+  public product: any;
+  public productsData: any;
+  public finalProductData: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private productService: ProductService
   ) {
     this.key = this.activatedRoute.snapshot.params['id'];
     this.product = this.db.database.ref('/products/' + this.key);
     this.product.on('value', (data: any) => {
       this.productsData = data.val();
+      this.finalProductData = {
+        ...this.productsData,
+        product_id: this.key,
+        qty: 1,
+      };
     });
   }
 
   ngOnInit(): void {
   }
 
-  public addToCart(product: any): void {
-    const customerID = localStorage.getItem('customerId');
-    const cartRef = this.db.database.ref('/carts')
-    const data = {
-      ...this.productsData,
-      customerID: customerID
-    }
-    cartRef.push(data);
+  public addToCart(): void {
+    const productArray = {
+      ...this.finalProductData,
+      finalPrice: this.finalProductData.price * this.finalProductData.qty
+    };
+    this.productService.addToCart(productArray);
+
   }
 }

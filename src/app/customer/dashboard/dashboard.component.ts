@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../customer-service/product.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(private productService: ProductService) {
     this.products = this.productService.getAllProducts();
+    // console.log('this.products :>> ', this.products);
   }
 
   ngOnInit(): void {
   }
+
 
 }

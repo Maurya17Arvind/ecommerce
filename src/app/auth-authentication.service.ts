@@ -21,7 +21,6 @@ export class AuthAuthenticationService {
 
   public signUp(email: string, password: string): void {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password).then((res: any) => {
-      // console.log('res', res);
       if (res.operationType == 'signIn') {
         if (res.additionalUserInfo) {
           const tremPath = this.db.database.ref('/users');
@@ -49,7 +48,7 @@ export class AuthAuthenticationService {
             push_key: key
           }
         });
-        console.log('data1', this.data1);
+        // console.log('data1', this.data1);
         const data2 = this.data1.find((e: any) => e.email == email);
         localStorage.setItem('customerId', data2.push_key);
         if (data2.role === 'customer') {
@@ -84,17 +83,19 @@ export class AuthAuthenticationService {
   // }
 
 
-  public addToCart(): void {
-    let allData = this.db.database.ref('/users');
-    allData.on('value', (data: any) => {
-      this.data1 = Object.keys(data.val()).map(key => {
-        return {
-          ...data.val()[key],
-          push_key: key
-        }
-      });
-      const data2 = this.data1.find((e: any) => e.push_key);
-      console.log('data2', data2.push_key);
-    });
-  }
+  // public addToCart(): void {
+  //   let allData = this.db.database.ref('/users');
+  //   allData.on('value', (data: any) => {
+  //     this.data1 = Object.keys(data.val()).map(key => {
+  //       return {
+  //         ...data.val()[key],
+  //         push_key: key,
+
+  //       }
+  //     });
+  //     const data2 = this.data1.find((e: any) => e.push_key);
+  //     console.log('data2', data2.push_key);
+  //     console.log('data1 :>> ', this.data1);
+  //   });
+  // }
 }

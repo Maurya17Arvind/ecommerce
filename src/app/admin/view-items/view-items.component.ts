@@ -10,8 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewItemsComponent implements OnInit {
 
   public products: any;
-  key: any;
-  detProduct: any;
+  public detProduct: any;
 
   constructor(private db: AngularFireDatabase, private activatedRoute: ActivatedRoute) {
     // this.products = db.list('/products').valueChanges();

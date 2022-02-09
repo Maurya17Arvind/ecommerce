@@ -13,6 +13,10 @@ const routes: Routes = [
     component: CustomerComponent,
     children: [
       {
+        path: '',
+        component: DashboardComponent
+      },
+      {
         path: 'home',
         component: DashboardComponent
       },
@@ -26,6 +30,10 @@ const routes: Routes = [
       },
       {
         path: 'product-details',
+        component: ProductDetailsComponent
+      },
+      {
+        path: 'product-details/:id',
         component: ProductDetailsComponent
       },
       {

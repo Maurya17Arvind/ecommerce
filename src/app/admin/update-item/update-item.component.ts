@@ -21,19 +21,23 @@ export class UpdateItemComponent implements OnInit {
     this.updateProduct = this.db.database.ref('/products/' + this.key);
     this.updateProduct.on('value', (data: any) => {
       this.updateData = data.val();
-      console.log('updateData', this.updateData);
+      // console.log('updateData', this.updateData);
     });
-    this.myForm = this.fb.group({
-      itemName: [this.updateData.itemName],
-      price: [this.updateData.price],
-      returnTime: [this.updateData.returnTime]
-    });
+    this.getData();
 
   }
 
   ngOnInit(): void {
+    this.getData();
   }
 
+  public getData() {
+    this.myForm = this.fb.group({
+      itemName: [this.updateData?.itemName || ''],
+      price: [this.updateData?.price || ''],
+      returnTime: [this.updateData?.returnTime || '']
+    });
+  }
   public updateItem(): void {
     this.updateProduct.update(this.myForm.value);
     this.router.navigate(['/admin/view-items']);

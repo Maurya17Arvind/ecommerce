@@ -16,20 +16,21 @@
                         <img class="custom-width" src="../assets/book1.jpg" alt="">
                         <div class="d-flex mt-2">
                             <div class="board">
-                                <h4 (click)="decriment()">-</h4>
+                                <h4 (click)="changeQty(cart.cartId,'remove')" class="pointer">-</h4>
                             </div>
                             <div class="board-qyt">
-                                <h4>{{qyt}}</h4>
+                                <h4>{{cart.qty}}</h4>
                             </div>
                             <div class="board">
-                                <h4 (click)="incriment()">+</h4>
+                                <h4 (click)="changeQty(cart.cartId,'add')" class="pointer">+</h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-5">
-                        <p>{{cart.itemName}}</p>
-                        <p>{{cart.price *qyt| currency:'INR'}}</p>
-                        <h5>REMOVE</h5>
+                        <p>Item Name:- {{cart.itemName}}</p>
+                        <p>Price:- {{cart.price| currency:'INR'}}</p>
+                        <p>Total Price:- {{cart.finalPrice| currency:'INR'}}</p>
+                        <h5 (click)="deleteCart(cart.cartId)">REMOVE</h5>
                     </div>
                     <div class="col-sm-4">
                         <p>Delivery by </p>
@@ -37,13 +38,32 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-primary">Place Order</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Place Order
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="card">
-                <h5 class="card-header">Price Details</h5>
+                <h5 class="card-header text-gray">Price Details</h5>
                 <div class="card-body">
                     <p></p>
                     <p></p>
@@ -52,5 +72,4 @@
             </div>
         </div>
     </div>
-
 </div>

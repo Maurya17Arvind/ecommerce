@@ -8,10 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductService {
 
   public allProducts: any;
-  products: any;
+  public products: any;
   public key!: string;
-  product: any;
-  productsData: any;
+  public product: any;
+  public productsData: any;
+
 
   constructor(private db: AngularFireDatabase,
     private activatedRoute: ActivatedRoute
@@ -39,12 +40,14 @@ export class ProductService {
     this.product.on('value', (data: any) => {
       this.productsData = data.val();
     });
+    console.log('this.product', this.productsData);
   }
 
 
   public addToCart(productDetails: any): void {
     const customerID = localStorage.getItem('customerId');
     const cartRef = this.db.database.ref('/carts')
+    console.log('cartRef :>> ', cartRef);
     const data = {
       ...productDetails,
       customerID: customerID

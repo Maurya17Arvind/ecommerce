@@ -32,11 +32,20 @@ export class CartComponent implements OnInit {
       // console.log('this.cart', this.filterCart);
     });
   }
+  
 
   ngOnInit(): void {
+    this.getOrderPrice();
   }
 
-
+public getOrderPrice(): void {
+    let orderPrice: any = [];
+    this.filterCart.filter((e: any) => {
+      orderPrice.push(e.finalPrice);
+    });
+    this.fullBillAmount = eval(orderPrice.join('+'));
+  }
+  
   public deleteCart(key: string) {
     this.detProduct = this.db.database.ref('/carts/' + key);
     this.detProduct.remove();

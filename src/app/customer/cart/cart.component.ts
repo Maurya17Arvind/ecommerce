@@ -12,30 +12,37 @@ export class CartComponent implements OnInit {
 
   public carts: any;
   public filterCart: any;
-  public qyt: number = 1;
-  public idCart: any;
   public detProduct: any;
-  tremdata: any;
   public changedCartData: any;
-  public ownCartData: any;
+  public fullBillAmount!: number;
+  public totalCart!: number;
 
-  constructor(private productService: ProductService, private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/carts');
     cartData.on('value', (data: any) => {
-      this.carts = Object.keys(data.val()).map(key => {
+      this.carts = Object.keys(data?.val() || '').map(key => {
         return {
           ...data.val()[key],
           cartId: key
         }
       });
       this.filterCart = this.carts.filter((e: any) => e.customerID == localStorage.getItem('customerId'));
-      // console.log('this.cart', this.filterCart);
+      this.totalCart = this.filterCart.length;
     });
+    this.getOrderPrice();
   }
 
   ngOnInit(): void {
+    this.getOrderPrice();
   }
 
+  public getOrderPrice(): void {
+    let orderPrice: any[] = [];
+    this.filterCart.filter((e: any) => {
+      orderPrice.push(e.finalPrice);
+    });
+    this.fullBillAmount = eval(orderPrice.join('+'));
+  }
 
   public deleteCart(key: string) {
     this.detProduct = this.db.database.ref('/carts/' + key);
@@ -46,7 +53,7 @@ export class CartComponent implements OnInit {
     this.changedCartData = this.filterCart.find(
       (e: any) => e.cartId == cartId
     );
-    console.log('this.changedcartData', this.changedCartData);
+
     const refPath = this.db.database.ref('/carts/' + cartId);
 
     const commonData = {
@@ -64,7 +71,6 @@ export class CartComponent implements OnInit {
         qty: this.changedCartData.qty + 1,
       }
       refPath.update(dataObject);
-      console.log('dataObject', dataObject)
     }
     else {
       const dataObject = {
@@ -73,8 +79,6 @@ export class CartComponent implements OnInit {
         qty: this.changedCartData.qty - 1
       }
       refPath.update(dataObject);
-      console.log('dataObject', dataObject)
     }
-
   }
 }

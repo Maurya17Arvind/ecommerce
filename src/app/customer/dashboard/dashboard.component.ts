@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
     private db: AngularFireDatabase
   ) {
     this.products = this.productService.getAllProducts();
-    console.log('this.products', this.products);
   }
 
   ngOnInit(): void { }
@@ -37,7 +36,7 @@ export class DashboardComponent implements OnInit {
     });
     const productArray = {
       ...this.finalProductData,
-      product_id: cart,
+      product_id: cart.push_key,
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.productService.addToCart(productArray);

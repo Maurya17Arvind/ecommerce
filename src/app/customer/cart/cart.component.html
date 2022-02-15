@@ -1,6 +1,7 @@
 <div class="m-3 container-fluid">
-    <!-- <div>
-        <button class="btn btn-primary" routerLink="/admin">Go Back</button>
+    <!-- <div class="card" *ngIf="totalCart<0">
+        <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+            alt="Cart Image">
     </div> -->
     <div class="row d-flex justify-content-center">
         <div class="col-sm-5">
@@ -16,7 +17,8 @@
                         <img class="custom-width" src="../assets/book1.jpg" alt="">
                         <div class="d-flex mt-2">
                             <div class="board">
-                                <h4 (click)="changeQty(cart.cartId,'remove')" class="pointer">-</h4>
+                                <h4 (click)="changeQty(cart.cartId,'remove')" class="pointer">-
+                                </h4>
                             </div>
                             <div class="board-qyt">
                                 <h4>{{cart.qty}}</h4>
@@ -27,14 +29,14 @@
                         </div>
                     </div>
                     <div class="col-sm-5">
-                        <p>Item Name:- {{cart.itemName}}</p>
-                        <p>Price:- {{cart.price| currency:'INR'}}</p>
-                        <p>Total Price:- {{cart.finalPrice| currency:'INR'}}</p>
+                        <p>Item Name:- {{cart?.itemName ||''}}</p>
+                        <p>Price:- {{cart?.price| currency:'INR' || ''}}</p>
+                        <p>Total Price:- {{cart?.finalPrice| currency:'INR'||''}}</p>
                         <h5 (click)="deleteCart(cart.cartId)">REMOVE</h5>
                     </div>
                     <div class="col-sm-4">
                         <p>Delivery by </p>
-                        <p>{{cart.returnTime}} Day Replacement Policy</p>
+                        <p>{{cart?.returnTime||''}} Day Replacement Policy</p>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
@@ -52,11 +54,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="card-body" *ngFor="let data of filterCart">
+                            <div class="row">
+                                <div class="col-sm-8 ps-3 pt-2">
+                                    <h5 class="card-title">{{data?.title||''}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{data.price | currency:'INR'}}</h6>
+                                    <p class="card-text">Quantity : {{data?.qty||''}}</p>
+                                </div>
+                                <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                                    <h4>₹{{data?.finalPrice||''}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="ms-3">Total amount : <span class="text-blue text-bold">
+                                    {{fullBillAmount | currency:'INR'}}</span></p>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button class="btn btn-primary">Make Payment</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,9 +79,15 @@
         <div class="col-sm-4">
             <div class="card">
                 <h5 class="card-header text-gray">Price Details</h5>
-                <div class="card-body">
-                    <p></p>
-                    <p></p>
+                <div class="card-body row">
+                    <div class="col-sm-6">
+                        <p>Price({{totalCart}} items)</p>
+                        <p>Delivery Charge</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{fullBillAmount | currency:'INR'}}</p>
+                        <p class="text-success">Free</p>
+                    </div>
                     <p></p>
                 </div>
             </div>

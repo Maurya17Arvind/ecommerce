@@ -18,6 +18,7 @@ export class ProductService {
     private activatedRoute: ActivatedRoute
   ) {
     this.allProducts = this.db.database.ref('/products/');
+    this.getAllProducts();
   }
 
   public getAllProducts(): void {
@@ -35,19 +36,17 @@ export class ProductService {
 
   public getSingleProduct(): void {
     this.key = this.activatedRoute.snapshot.params['id'];
-    console.log('this.key', this.key);
     this.product = this.db.database.ref('/products/' + this.key);
     this.product.on('value', (data: any) => {
       this.productsData = data.val();
     });
-    console.log('this.product', this.productsData);
+    // console.log('this.product', this.productsData);
   }
 
 
   public addToCart(productDetails: any): void {
     const customerID = localStorage.getItem('customerId');
     const cartRef = this.db.database.ref('/carts')
-    console.log('cartRef :>> ', cartRef);
     const data = {
       ...productDetails,
       customerID: customerID

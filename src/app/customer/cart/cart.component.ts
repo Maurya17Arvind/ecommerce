@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../customer-service/product.service';
 
@@ -16,6 +17,7 @@ export class CartComponent implements OnInit {
   public changedCartData: any;
   public fullBillAmount!: number;
   public totalCart!: number;
+  public orderForm!:FormGroup;
 
   constructor(private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/carts');
@@ -41,7 +43,9 @@ export class CartComponent implements OnInit {
     this.filterCart.filter((e: any) => {
       orderPrice.push(e.finalPrice);
     });
-    this.fullBillAmount = eval(orderPrice.join('+'));
+    const grandTotal = orderPrice.join('+')
+    this.fullBillAmount = eval(grandTotal);
+    // console.log('this.fullBillAmount', this.fullBillAmount)
   }
 
   public deleteCart(key: string) {
@@ -53,7 +57,7 @@ export class CartComponent implements OnInit {
     this.changedCartData = this.filterCart.find(
       (e: any) => e.cartId == cartId
     );
-
+    this.getOrderPrice();
     const refPath = this.db.database.ref('/carts/' + cartId);
 
     const commonData = {

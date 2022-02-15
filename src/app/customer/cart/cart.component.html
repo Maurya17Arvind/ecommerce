@@ -1,9 +1,22 @@
 <div class="m-3 container-fluid">
-    <!-- <div class="card" *ngIf="totalCart<0">
-        <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
-            alt="Cart Image">
-    </div> -->
-    <div class="row d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
+        <div class="card col-sm-8" *ngIf="totalCart==0">
+            <div class="m-3">
+                <h2>My Cart</h2>
+                <div class="custom-cart-image">
+                    <img class="text-center"
+                        src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+                        alt="Cart Image">
+                </div>
+                <div class="text-center">
+                    <h4>Your cart is Empty</h4>
+                    <small class="text-muted">Add items to it now</small><br>
+                    <a routerLink="/customer/home" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" *ngIf="totalCart!=0">
         <div class="col-sm-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
@@ -65,6 +78,9 @@
                                     <h4>₹{{data?.finalPrice||''}}</h4>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <form [formGroup]="orderForm"></form>
                         </div>
                         <div class="modal-footer">
                             <p class="ms-3">Total amount : <span class="text-blue text-bold">

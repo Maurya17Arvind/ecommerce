@@ -80,13 +80,26 @@
                             </div>
                         </div>
                         <div>
-                            <form [formGroup]="orderForm"></form>
+                            <form [formGroup]="orderForm">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Area"
+                                        formControlName="area">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Address"
+                                        formControlName="address">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter PinCode"
+                                        formControlName="pinCode">
+                                </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <p class="ms-3">Total amount : <span class="text-blue text-bold">
                                     {{fullBillAmount | currency:'INR'}}</span></p>
                             <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button class="btn btn-primary">Make Payment</button>
+                            <button class="btn btn-primary" (click)="addAddress()">Make Payment</button>
                         </div>
                     </div>
                 </div>

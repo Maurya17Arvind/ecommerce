@@ -42,6 +42,5 @@ export class ProductDetailsComponent implements OnInit {
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.productService.addToCart(productArray);
-
   }
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../customer-service/product.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -17,9 +15,17 @@ export class CartComponent implements OnInit {
   public changedCartData: any;
   public fullBillAmount!: number;
   public totalCart!: number;
-  public orderForm!:FormGroup;
+  public orderForm!: FormGroup;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private fb: FormBuilder) {
+    this.orderForm = this.fb.group({
+      area: '',
+      address: '',
+      pinCode: ''
+    })
+
+
+
     const cartData = this.db.database.ref('/carts');
     cartData.on('value', (data: any) => {
       this.carts = Object.keys(data?.val() || '').map(key => {
@@ -30,8 +36,9 @@ export class CartComponent implements OnInit {
       });
       this.filterCart = this.carts.filter((e: any) => e.customerID == localStorage.getItem('customerId'));
       this.totalCart = this.filterCart.length;
+      this.getOrderPrice();
+      // console.log('this.filterCart', this.filterCart)
     });
-    this.getOrderPrice();
   }
 
   ngOnInit(): void {
@@ -40,7 +47,7 @@ export class CartComponent implements OnInit {
 
   public getOrderPrice(): void {
     let orderPrice: any[] = [];
-    this.filterCart.filter((e: any) => {
+    this.filterCart?.filter((e: any) => {
       orderPrice.push(e.finalPrice);
     });
     const grandTotal = orderPrice.join('+')
@@ -84,5 +91,17 @@ export class CartComponent implements OnInit {
       }
       refPath.update(dataObject);
     }
+  }
+
+
+  public addAddress(): void {
+    let address = this.db.database.ref('/orders');
+    const orderData = {
+      ...this.orderForm.value,
+      cartValue: this.filterCart,
+      userId: localStorage.getItem('customerId')
+    }
+    address.push(orderData);
+
   }
 }

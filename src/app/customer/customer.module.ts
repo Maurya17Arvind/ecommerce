@@ -10,6 +10,8 @@ import { CustomerHeaderComponent } from '../core/customer-header/customer-header
 import { CoreModule } from '../core/core.module';
 import { CustomerComponent } from './customer.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderComponent } from './order/order.component';
 
 
 @NgModule({
@@ -20,11 +22,14 @@ import { ProfileComponent } from './profile/profile.component';
     ProductDetailsComponent,
     CustomerComponent,
     ProfileComponent,
+    OrderComponent,
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class CustomerModule { }

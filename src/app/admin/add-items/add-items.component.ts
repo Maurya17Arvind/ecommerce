@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthAuthenticationService } from 'src/app/auth-authentication.service';
 
 @Component({
   selector: 'app-add-items',
@@ -16,7 +15,7 @@ export class AddItemsComponent implements OnInit {
   public price!: string;
   public returnTime!: string;
 
-  constructor(private fb: FormBuilder, private authAuthenticationService: AuthAuthenticationService, private db: AngularFireDatabase, private toaster: ToastrService) {
+  constructor(private fb: FormBuilder, private db: AngularFireDatabase, private toaster: ToastrService) {
     this.myForm = this.fb.group({
       itemName: '',
       price: '',

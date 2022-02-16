@@ -14,6 +14,7 @@ export class OrderComponent implements OnInit {
   public filterOrder: any;
   public productDetails: any;
   public orderDetails: any;
+  public trem: any;
 
   constructor(private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/orders');
@@ -25,7 +26,6 @@ export class OrderComponent implements OnInit {
         }
       });
       this.filterOrder = this.orders.filter((e: any) => e.userId == localStorage.getItem('customerId'))
-
       this.filterOrder.filter((e: any) => {
         this.productDetails = e.cartValue;
       })
@@ -34,10 +34,17 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void { }
 
-
-  public viewDetails(product_id: string): void {
-    this.orderDetails = this.productDetails.filter((product: any) => product.product_id == product_id)
-    console.log('orderDetails', this.orderDetails)
-
+  public getOrder(orderId: string) {
+    const orderData = this.db.database.ref('/orders/' + orderId);
+    orderData.on('value', (data: any) => {
+      this.trem = data.val().cartValue;
+      // console.log('trem', this.trem)
+    });
   }
+
+  // public viewDetails(product_id: string): void {
+  //   this.orderDetails = this.productDetails.filter((product: any) => product.product_id == product_id)
+  //   // console.log('orderDetails', this.orderDetails)
+
+  // }
 }

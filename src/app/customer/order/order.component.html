@@ -7,25 +7,24 @@
             <p>{{address.pinCode}}</p>
             <p>{{address.orderId}}</p>
         </div>
+
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
-            <h3>Your Order Product Details</h3>
-            <div *ngFor="let order of productDetails" class="d-flex m-3">
+            <h3>Your Order</h3>
+            <div *ngFor="let order of filterOrder; let i=index" class="d-flex m-3">
                 <div class="col-sm-4">
+                    Order:-{{i+1}}
                     <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
                 </div>
-                <div class="col-sm-4">
-                    <p>{{order.itemName}}</p>
-                </div>
                 <div>
-                    <a (click)="viewDetails(order.product_id)" class="btn btn-primary m-3">View Details</a>
+                    <a class="btn btn-primary" (click)="getOrder(order.orderId)">Get Order</a>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <h4>Product Details</h4>
-            <div *ngFor="let product of orderDetails">
+            <div *ngFor="let product of trem">
                 <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
                 <p>Product Name:- {{product.itemName}}</p>
                 <p>Price:- {{product.price}}</p>
@@ -35,21 +34,4 @@
             </div>
         </div>
     </div>
-
 </div>
-<!-- cartId: "-Mvwv3dwAXapy9HQgGoq"
-customerID: "-MvIydpR_LRQR5Om6OXa"
-finalPrice: 10000
-itemName: "CPU"
-price: "10000"
-product_id: "-MvN0Wkseo0uRZyqXK-l"
-qty: 1
-finalPrice: "7" -->
-
-
-<!-- address: "asdasd"
-area: "panderasd"
-cartValue: (3) [{…}, {…}, {…}]
-orderId: "-Mvwz2fGXYPTznxRQDXD"
-area: "394221"
-userId: "-MvIydpR_LRQR5Om6OXa" -->

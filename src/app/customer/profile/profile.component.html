@@ -1,9 +1,85 @@
-<div class="card" style="width: 18rem;">
-    <img src="https://freesvg.org/img/abstract-user-flat-4.png" class="card-img-top" alt="profile image">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-        <a href="#" class="btn btn-primary">About Us</a>
+<div class="container-fluid">
+    <div class="row custom-bg-blue d-flex">
+        <div class="d-flex"><a routerLink="/customer/home"><i class="far fa-arrow-left mt-2 fs-2 text-black"></i></a>
+            <h1 class="ms-2">My Account</h1>
+        </div>
+        <div class="custom-width d-flex justify-content-center">
+            <img src="https://freesvg.org/img/abstract-user-flat-4.png" class="card-img-top" alt="profile image">
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Order</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">View Order</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>E-Commerce Plus</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">View Plus Zone</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Wishlist</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">View Wishlist</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Order</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">Order</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Order</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">Order</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Order</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">Order</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Order</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" routerLink="/customer/order">Order</a>
+        </div>
+    </div>
+    <div class="card m-3 shadow p-3 mb-5 bg-body rounded">
+        <div class="m-2">
+            <h3>My Address</h3>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end m-2">
+            <div>
+                <p>{{address}}{{area}}{{pinCode}}</p>
+            </div>
+            <a class="btn btn-primary" routerLink="/customer/order">View Address</a>
+        </div>
     </div>
 </div>

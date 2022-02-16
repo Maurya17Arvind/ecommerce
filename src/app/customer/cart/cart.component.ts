@@ -60,6 +60,10 @@ export class CartComponent implements OnInit {
     this.detProduct.remove();
   }
 
+  public clearCart(): void {
+    this.detProduct = this.db.database.ref('/carts');
+    this.detProduct.remove();
+  }
   public changeQty(cartId: string, operation: string): void {
     this.changedCartData = this.filterCart.find(
       (e: any) => e.cartId == cartId
@@ -102,6 +106,6 @@ export class CartComponent implements OnInit {
       userId: localStorage.getItem('customerId')
     }
     address.push(orderData);
-
+    this.clearCart();
   }
 }

@@ -10,6 +10,10 @@ export class OrderComponent implements OnInit {
 
   public orderDatas: any;
   public orders: any;
+  public customerOrder: any;
+  public filterOrder: any;
+  public productDetails: any;
+  public orderDetails: any;
 
   constructor(private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/orders');
@@ -20,22 +24,20 @@ export class OrderComponent implements OnInit {
           orderId: key
         }
       });
-      // const filterOrder = this.order.filter((e: any) => {
-      //   console.log('e', e)
-      // })
-      console.log('this.order', this.orders)
+      this.filterOrder = this.orders.filter((e: any) => e.userId == localStorage.getItem('customerId'))
+
+      this.filterOrder.filter((e: any) => {
+        this.productDetails = e.cartValue;
+      })
     })
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 
-  public viewDetails(orderId: any): void {
-    const basePath = this.db.database.ref('/orders/' + orderId)
-    basePath.on('value', (data: any) => {
-      this.orderDatas = data.val().cartValue;
-      console.log('data.val()', this.orderDatas);
-    });
+  public viewDetails(product_id: string): void {
+    this.orderDetails = this.productDetails.filter((product: any) => product.product_id == product_id)
+    console.log('orderDetails', this.orderDetails)
+
   }
 }

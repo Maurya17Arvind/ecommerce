@@ -1,15 +1,55 @@
 <div class="card m-3 row d-flex justify-content-center">
-    <div class="col-sm-5">
-        <h3>Your Order Proucts</h3>
-        <div *ngFor="let order of orders" class="m-2">
-            <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
-            <a (click)="viewDetails(order.orderId)" class="btn btn-primary m-3">View Details</a>
+    <div class="col-md-12">
+        <h3>Your Address</h3>
+        <div *ngFor="let address of filterOrder" class="m-2">
+            <p>{{address.address}}</p>
+            <p>{{address.area}}</p>
+            <p>{{address.pinCode}}</p>
+            <p>{{address.orderId}}</p>
         </div>
     </div>
-    <div class="col-sm-5">
-        <h3>Your Order Product Detales</h3>
-        <div *ngFor="let order of orderDatas">
-            <p>{{order.itemName}}</p>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <h3>Your Order Product Details</h3>
+            <div *ngFor="let order of productDetails" class="d-flex m-3">
+                <div class="col-sm-4">
+                    <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
+                </div>
+                <div class="col-sm-4">
+                    <p>{{order.itemName}}</p>
+                </div>
+                <div>
+                    <a (click)="viewDetails(order.product_id)" class="btn btn-primary m-3">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Product Details</h4>
+            <div *ngFor="let product of orderDetails">
+                <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
+                <p>Product Name:- {{product.itemName}}</p>
+                <p>Price:- {{product.price}}</p>
+                <p>Quantity:- {{product.qty}}</p>
+                <p>Total Price:- {{product.finalPrice}}</p>
+                <p>Return Time:- {{product.returnTime}}</p>
+            </div>
         </div>
     </div>
+
 </div>
+<!-- cartId: "-Mvwv3dwAXapy9HQgGoq"
+customerID: "-MvIydpR_LRQR5Om6OXa"
+finalPrice: 10000
+itemName: "CPU"
+price: "10000"
+product_id: "-MvN0Wkseo0uRZyqXK-l"
+qty: 1
+finalPrice: "7" -->
+
+
+<!-- address: "asdasd"
+area: "panderasd"
+cartValue: (3) [{…}, {…}, {…}]
+orderId: "-Mvwz2fGXYPTznxRQDXD"
+area: "394221"
+userId: "-MvIydpR_LRQR5Om6OXa" -->

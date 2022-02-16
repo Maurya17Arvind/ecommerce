@@ -82,15 +82,15 @@
                             <form [formGroup]="orderForm">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" placeholder="Enter Area"
-                                        formControlName="area">
+                                        formControlName="area" [value]="area">
                                 </div>
                                 <div class="mb-3">
                                     <input type="text" class="form-control" placeholder="Address"
-                                        formControlName="address">
+                                        formControlName="address" [value]="address">
                                 </div>
                                 <div class="mb-3">
                                     <input type="text" class="form-control" placeholder="Enter PinCode"
-                                        formControlName="pinCode">
+                                        formControlName="pinCode" [value]="pinCode">
                                 </div>
                             </form>
                         </div>
@@ -119,7 +119,17 @@
                     </div>
                     <p></p>
                 </div>
+                <div class="card-footer row m-2">
+                    <div class="col-sm-6">
+                        <p>Grand Total</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{fullBillAmount | currency:'INR'}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <button class="btn btn-primary" (click)="clearCart()">Check</button>
+
 </div>

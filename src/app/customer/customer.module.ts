@@ -29,7 +29,7 @@ import { OrderComponent } from './order/order.component';
     CustomerRoutingModule,
     CoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class CustomerModule { }

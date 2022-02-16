@@ -7,6 +7,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from '../admin/admin.module';
 import { CustomerModule } from '../customer/customer.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CustomerModule } from '../customer/customer.module';
     FormsModule,
     ReactiveFormsModule,
     AdminModule,
-    CustomerModule
+    CustomerModule,
+    ToastrModule.forRoot()
   ]
 })
 export class AuthModule { }

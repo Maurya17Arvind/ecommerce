@@ -16,6 +16,12 @@ export class CartComponent implements OnInit {
   public fullBillAmount!: number;
   public totalCart!: number;
   public orderForm!: FormGroup;
+  public orders: any;
+  public filterOrder: any;
+  public address!: string;
+  public area!: string;
+  public pinCode!: string;
+  public data2: any;
 
   constructor(private db: AngularFireDatabase, private fb: FormBuilder) {
     this.orderForm = this.fb.group({
@@ -23,8 +29,6 @@ export class CartComponent implements OnInit {
       address: '',
       pinCode: ''
     })
-
-
 
     const cartData = this.db.database.ref('/carts');
     cartData.on('value', (data: any) => {
@@ -37,7 +41,23 @@ export class CartComponent implements OnInit {
       this.filterCart = this.carts.filter((e: any) => e.customerID == localStorage.getItem('customerId'));
       this.totalCart = this.filterCart.length;
       this.getOrderPrice();
-      // console.log('this.filterCart', this.filterCart)
+    });
+
+
+    const cartData1 = this.db.database.ref('/orders');
+    cartData1.on('value', (data: any) => {
+      this.orders = Object.keys(data?.val() || '').map(key => {
+        return {
+          ...data.val()[key],
+          orderId: key
+        }
+      });
+      this.filterOrder = this.orders.filter((orderFilter: any) => orderFilter.userId == localStorage.getItem('customerId'))
+      this.filterOrder.filter((address: any) => {
+        this.address = address.address;
+        this.area = address.area;
+        this.pinCode = address.pinCode;
+      });
     });
   }
 
@@ -52,7 +72,6 @@ export class CartComponent implements OnInit {
     });
     const grandTotal = orderPrice.join('+')
     this.fullBillAmount = eval(grandTotal);
-    // console.log('this.fullBillAmount', this.fullBillAmount)
   }
 
   public deleteCart(key: string) {
@@ -61,9 +80,25 @@ export class CartComponent implements OnInit {
   }
 
   public clearCart(): void {
+    const customerId = localStorage.getItem('customerId')
     this.detProduct = this.db.database.ref('/carts');
-    this.detProduct.remove();
+    this.detProduct.on('value', (data: any) => {
+      const deleteArray = Object.keys(data?.val() || '').map(key => {
+        return {
+          ...data.val()[key],
+          cartId: key
+        }
+      });
+      this.data2 = deleteArray.filter((e: any) => e.customerID == customerId)
+      console.log('data2', this.data2);
+      // this.data2.splice(0, this.data2.length);
+      // this.data2.pop();
+    });
+
   }
+
+
+
   public changeQty(cartId: string, operation: string): void {
     this.changedCartData = this.filterCart.find(
       (e: any) => e.cartId == cartId

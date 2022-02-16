@@ -23,7 +23,8 @@ import { ToastrModule } from 'ngx-toastr';
     AdminRoutingModule,
     CoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ]
 })
 export class AdminModule { }

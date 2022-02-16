@@ -30,7 +30,6 @@ export class PendingOrdersComponent implements OnInit {
     const basePath = this.db.database.ref('/orders/' + orderId)
     basePath.on('value', (data: any) => {
       this.orderDatas = data.val().cartValue;
-      console.log('data.val()', this.orderDatas);
     });
     // this.orderDatas.filter((data: any) => {
     //   console.log('orderData', data)

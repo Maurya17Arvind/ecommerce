@@ -14,7 +14,7 @@ export class OrderComponent implements OnInit {
   public filterOrder: any;
   public productDetails: any;
   public orderDetails: any;
-  public trem: any;
+  public orderData: any;
 
   constructor(private db: AngularFireDatabase) {
     const cartData = this.db.database.ref('/orders');
@@ -37,8 +37,8 @@ export class OrderComponent implements OnInit {
   public getOrder(orderId: string) {
     const orderData = this.db.database.ref('/orders/' + orderId);
     orderData.on('value', (data: any) => {
-      this.trem = data.val().cartValue;
-      // console.log('trem', this.trem)
+      this.orderData = data.val().cartValue;
+      // console.log('trem', this.orderData)
     });
   }
 

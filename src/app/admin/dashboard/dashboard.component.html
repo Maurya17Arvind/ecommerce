@@ -1,12 +1,12 @@
 <app-header></app-header>
-<div class="card d-flex">
+<div class="card row d-flex justify-content-center">
     <!-- <div class="m-3">
         <button class="btn btn-primary" routerLink="add-items">Add Item</button>
     </div>
     <div class="m-3">
         <button class="btn btn-primary" routerLink="view-items">View Item</button>
     </div> -->
-    <div class="card m-3 d-flex justify-content-between" *ngFor="let card of cards">
+    <div class="card m-3 col-sm-3 d-flex" *ngFor="let card of cards">
         <div class="m-3">
             <h1>{{card.title}}</h1>
             <button class="btn btn-primary" routerLink={{card.routerLink}}>{{card.button}}</button>

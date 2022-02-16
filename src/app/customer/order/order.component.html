@@ -2,10 +2,10 @@
     <div class="col-md-12">
         <h3>Your Address</h3>
         <div *ngFor="let address of filterOrder" class="m-2">
-            <p>{{address.address}}</p>
-            <p>{{address.area}}</p>
-            <p>{{address.pinCode}}</p>
-            <p>{{address.orderId}}</p>
+            <p>Address:- {{address.address}}</p>
+            <p>Area:- {{address.area}}</p>
+            <p>PinCode:- {{address.pinCode}}</p>
+            <p>Order ID:- {{address.orderId}}</p>
         </div>
 
     </div>
@@ -24,13 +24,17 @@
         </div>
         <div class="col-md-6">
             <h4>Product Details</h4>
-            <div *ngFor="let product of trem">
-                <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
-                <p>Product Name:- {{product.itemName}}</p>
-                <p>Price:- {{product.price}}</p>
-                <p>Quantity:- {{product.qty}}</p>
-                <p>Total Price:- {{product.finalPrice}}</p>
-                <p>Return Time:- {{product.returnTime}}</p>
+            <div *ngFor="let product of orderData" class="d-flex">
+                <div class="clo-sm-4 m-2">
+                    <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
+                </div>
+                <div class="col-sm-12 m-2">
+                    <p>Product Name:- {{product.itemName}}</p>
+                    <p>Price:- {{product.price}}</p>
+                    <p>Quantity:- {{product.qty}}</p>
+                    <p>Total Price:- {{product.finalPrice}}</p>
+                    <p>Return Time:- {{product.returnTime}}</p>
+                </div>
             </div>
         </div>
     </div>

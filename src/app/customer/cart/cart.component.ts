@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CartService } from '../customer-service/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,13 +22,16 @@ export class CartComponent implements OnInit {
   public address!: string;
   public area!: string;
   public pinCode!: string;
-  public data2: any;
+  public filterCustomer: any;
 
-  constructor(private db: AngularFireDatabase, private fb: FormBuilder) {
+  constructor(private db: AngularFireDatabase, private fb: FormBuilder, private cartService: CartService) {
+
     this.orderForm = this.fb.group({
       area: '',
       address: '',
-      pinCode: ''
+      pinCode: '',
+      mobileNo: '',
+      name: ''
     })
 
     const cartData = this.db.database.ref('/carts');
@@ -43,22 +47,13 @@ export class CartComponent implements OnInit {
       this.getOrderPrice();
     });
 
-
-    const cartData1 = this.db.database.ref('/orders');
-    cartData1.on('value', (data: any) => {
-      this.orders = Object.keys(data?.val() || '').map(key => {
-        return {
-          ...data.val()[key],
-          orderId: key
-        }
-      });
-      this.filterOrder = this.orders.filter((orderFilter: any) => orderFilter.userId == localStorage.getItem('customerId'))
-      this.filterOrder.filter((address: any) => {
-        this.address = address.address;
-        this.area = address.area;
-        this.pinCode = address.pinCode;
-      });
-    });
+    this.orders = this.cartService.getOrdersDetail();
+    // this.filterOrder = this.orders.filter((orderFilter: any) => orderFilter.userId == localStorage.getItem('customerId'))
+    //   this.filterOrder.filter((address: any) => {
+    //     this.address = address.address;
+    //     this.area = address.area;
+    //     this.pinCode = address.pinCode;
+    //   });
   }
 
   ngOnInit(): void {
@@ -79,31 +74,13 @@ export class CartComponent implements OnInit {
     this.detProduct.remove();
   }
 
-  public clearCart(): void {
-    const customerId = localStorage.getItem('customerId')
-    this.detProduct = this.db.database.ref('/carts');
-    this.detProduct.on('value', (data: any) => {
-      const deleteArray = Object.keys(data?.val() || '').map(key => {
-        return {
-          ...data.val()[key],
-          cartId: key
-        }
-      });
-      this.data2 = deleteArray.filter((e: any) => e.customerID == customerId)
-      console.log('data2', this.data2);
-      // this.data2.splice(0, this.data2.length);
-      // this.data2.pop();
-    });
-
-  }
-
-
 
   public changeQty(cartId: string, operation: string): void {
     this.changedCartData = this.filterCart.find(
       (e: any) => e.cartId == cartId
     );
     this.getOrderPrice();
+
     const refPath = this.db.database.ref('/carts/' + cartId);
 
     const commonData = {
@@ -133,7 +110,7 @@ export class CartComponent implements OnInit {
   }
 
 
-  public addAddress(): void {
+  public placeOrder(): void {
     let address = this.db.database.ref('/orders');
     const orderData = {
       ...this.orderForm.value,
@@ -141,6 +118,6 @@ export class CartComponent implements OnInit {
       userId: localStorage.getItem('customerId')
     }
     address.push(orderData);
-    this.clearCart();
+    this.cartService.clearCart();
   }
 }

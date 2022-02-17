@@ -94,13 +94,21 @@
                                     <input type="text" class="form-control" placeholder="Enter PinCode"
                                         formControlName="pinCode" [value]="pinCode">
                                 </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Mobile No"
+                                        formControlName="mobileNo">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter Your Name "
+                                        formControlName="name">
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <p class="ms-3">Total amount : <span class="text-blue text-bold">
                                     {{fullBillAmount | currency:'INR'}}</span></p>
                             <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button class="btn btn-primary" (click)="addAddress()" data-bs-dismiss="modal">Order
+                            <button class="btn btn-primary" (click)="placeOrder()" data-bs-dismiss="modal">Order
                                 Now</button>
                         </div>
                     </div>
@@ -132,6 +140,4 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" (click)="clearCart()">Check</button>
-
 </div>

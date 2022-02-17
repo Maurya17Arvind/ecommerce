@@ -16,6 +16,7 @@ export class OrderComponent implements OnInit {
   public productDetails: any;
   public orderDetails: any;
   public orderData: any;
+  public orderLength!: number;
 
   constructor(private db: AngularFireDatabase, private orderService: OrderService) {
     const cartData = this.db.database.ref('/orders');
@@ -30,6 +31,7 @@ export class OrderComponent implements OnInit {
       this.filterOrder.filter((e: any) => {
         this.productDetails = e.cartValue;
       });
+      this.orderLength = this.filterOrder.length;
     });
   }
 
@@ -40,11 +42,6 @@ export class OrderComponent implements OnInit {
     orderData.on('value', (data: any) => {
       this.orderData = data.val().cartValue;
     });
+    console.log('this.orderData.length', this.orderData)
   }
-
-  // public viewDetails(product_id: string): void {
-  //   this.orderDetails = this.productDetails.filter((product: any) => product.product_id == product_id)
-  //   // console.log('orderDetails', this.orderDetails)
-
-  // }
 }

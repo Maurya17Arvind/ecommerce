@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ActivatedRoute } from '@angular/router';
-import { AuthAuthenticationService } from 'src/app/auth-authentication.service';
+import { CartService } from '../customer-service/cart.service';
 import { ProductService } from '../customer-service/product.service';
 
 @Component({
@@ -19,8 +19,10 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private db: AngularFireDatabase,
-    private productService: ProductService
+    private cartService: CartService
   ) {
+
+
     this.key = this.activatedRoute.snapshot.params['id'];
     this.product = this.db.database.ref('/products/' + this.key);
     this.product.on('value', (data: any) => {
@@ -41,6 +43,9 @@ export class ProductDetailsComponent implements OnInit {
       ...this.finalProductData,
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
-    this.productService.addToCart(productArray);
+    this.cartService.checkProductInCart(this.finalProductData.product_id, productArray);
   }
+
+
+
 }

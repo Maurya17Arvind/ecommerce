@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   constructor(private db: AngularFireDatabase, private fb: FormBuilder, private cartService: CartService) {
 
     this.orderForm = this.fb.group({
-      area: '',
+      area: [''],
       address: '',
       pinCode: '',
       mobileNo: '',
@@ -108,6 +108,7 @@ export class CartComponent implements OnInit {
       refPath.update(dataObject);
     }
   }
+
 
 
   public placeOrder(): void {

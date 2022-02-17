@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { CartService } from '../customer-service/cart.service';
 import { ProductService } from '../customer-service/product.service';
 
 @Component({
@@ -14,19 +15,31 @@ export class DashboardComponent implements OnInit {
   public product: any;
   public productsData: any;
   public finalProductData: any;
+  public cartId: any;
+  allProducts: any;
 
   constructor(
     private productService: ProductService,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private cartService: CartService
   ) {
-    this.products = this.productService.getAllProducts();
+    // this.products = this.productService.getAllProducts();
+    this.allProducts = this.db.database.ref('/products');
+    this.allProducts.on('value', (data: any) => {
+      this.products = Object.keys(data.val()).map(key => {
+        return {
+          ...data.val()[key],
+          push_key: key
+        }
+      });
+    });
+
   }
 
   ngOnInit(): void { }
 
   public addToCart(key: any): void {
-    const cart = this.products.find((e: any) => e.push_key = key)
-    this.product = this.db.database.ref('/products/' + cart.push_key);
+    this.product = this.db.database.ref('/products/' + key);
     this.product.on('value', (data: any) => {
       this.productsData = data.val();
       this.finalProductData = {
@@ -36,9 +49,45 @@ export class DashboardComponent implements OnInit {
     });
     const productArray = {
       ...this.finalProductData,
-      product_id: cart.push_key,
+      product_id: key,
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
-    this.productService.addToCart(productArray);
+    this.cartService.checkProductInCart(productArray.product_id, productArray);
+    // this.cartService.addToCart(productArray);
   }
+
+
+
+  // public checkProductInCart(): void {
+  //   const basePath = this.db.database.ref('/carts');
+  //   basePath.on('value', (data: any) => {
+  //     const cartData = Object.keys(data.val()).map((key) => {
+  //       return {
+  //         ...data.val()[key],
+  //         cartId: key
+  //       }
+  //     });
+  //     const ownCart = cartData.find((data: any) =>
+  //       data.customerID == localStorage.getItem('customerId') && data.product_id == this.cartId.push_key
+  //     )
+
+  //     if (!ownCart) {
+  //       this.addToCart(data);
+  //     }
+  //     else {
+  //       const basePath = this.db.database.ref('/carts/' + ownCart.cartId);
+  //       const data = {
+  //         customerID: ownCart.customerID,
+  //         finalPrice: ownCart.finalPrice * ownCart.qty,
+  //         itemName: ownCart.itemName,
+  //         price: ownCart.price,
+  //         product_id: ownCart.product_id,
+  //         qty: ownCart.qty + 1,
+  //         returnTime: ownCart.returnTime
+  //       }
+  //       basePath.update(data);
+  //     }
+  //   })
+
+  // }
 }

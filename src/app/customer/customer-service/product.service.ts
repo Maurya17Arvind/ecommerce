@@ -17,21 +17,21 @@ export class ProductService {
   constructor(private db: AngularFireDatabase,
     private activatedRoute: ActivatedRoute
   ) {
-    this.allProducts = this.db.database.ref('/products/');
-    this.getAllProducts();
+    this.allProducts = this.db.database.ref('/products');
+    // this.getAllProducts();
   }
 
-  public getAllProducts(): void {
-    this.allProducts.on('value', (data: any) => {
-      this.products = Object.keys(data.val()).map(key => {
-        return {
-          ...data.val()[key],
-          push_key: key
-        }
-      });
-    });
-    return this.products;
-  }
+  // public getAllProducts(): void {
+  //   this.allProducts.on('value', (data: any) => {
+  //     this.products = Object.keys(data.val()).map(key => {
+  //       return {
+  //         ...data.val()[key],
+  //         push_key: key
+  //       }
+  //     });
+  //   });
+  //   return this.products;
+  // }
 
 
   public getSingleProduct(): void {
@@ -44,13 +44,5 @@ export class ProductService {
   }
 
 
-  public addToCart(productDetails: any): void {
-    const customerID = localStorage.getItem('customerId');
-    const cartRef = this.db.database.ref('/carts')
-    const data = {
-      ...productDetails,
-      customerID: customerID
-    }
-    cartRef.push(data);
-  }
+
 }

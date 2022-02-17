@@ -2,9 +2,11 @@
     <div class="col-md-12">
         <h3>Your Address</h3>
         <div *ngFor="let address of filterOrder" class="m-2">
+            <p>Your Name:- {{address.name}}</p>
             <p>Address:- {{address.address}}</p>
             <p>Area:- {{address.area}}</p>
             <p>PinCode:- {{address.pinCode}}</p>
+            <p>Mobile No:- {{address.mobileNo}}</p>
             <p>Order ID:- {{address.orderId}}</p>
         </div>
 

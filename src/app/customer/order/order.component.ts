@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { OrderService } from '../customer-service/order.service';
 
 @Component({
   selector: 'app-order',
@@ -16,7 +17,7 @@ export class OrderComponent implements OnInit {
   public orderDetails: any;
   public orderData: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private orderService: OrderService) {
     const cartData = this.db.database.ref('/orders');
     cartData.on('value', (data: any) => {
       this.orders = Object.keys(data?.val() || '').map(key => {
@@ -25,11 +26,11 @@ export class OrderComponent implements OnInit {
           orderId: key
         }
       });
-      this.filterOrder = this.orders.filter((e: any) => e.userId == localStorage.getItem('customerId'))
+      this.filterOrder = this.orders.filter((e: any) => e.userId == localStorage.getItem('customerId'));
       this.filterOrder.filter((e: any) => {
         this.productDetails = e.cartValue;
-      })
-    })
+      });
+    });
   }
 
   ngOnInit(): void { }
@@ -38,7 +39,6 @@ export class OrderComponent implements OnInit {
     const orderData = this.db.database.ref('/orders/' + orderId);
     orderData.on('value', (data: any) => {
       this.orderData = data.val().cartValue;
-      // console.log('trem', this.orderData)
     });
   }
 

@@ -19,16 +19,24 @@ export class AuthAuthenticationService {
     this.userData = angularFireAuth.authState;
   }
 
-  public signUp(email: string, password: string): void {
+  public signUp(email: string, password: string, address: string, area: string, mobileNo: string, name: string, pinCode: string): void {
     this.angularFireAuth.createUserWithEmailAndPassword(email, password).then((res: any) => {
       if (res.operationType == 'signIn') {
         if (res.additionalUserInfo) {
-          const tremPath = this.db.database.ref('/users');
+          const usersPath = this.db.database.ref('/users');
           const data = {
             email: res.user?.multiFactor?.user?.email,
             role: 'admin'
           }
-          tremPath.push(data);
+          const formData = {
+            ...data,
+            name: name,
+            area: area,
+            pinCode: pinCode,
+            mobileNo: mobileNo,
+            address: address,
+          }
+          usersPath.push(formData);
         }
       }
     })
@@ -40,15 +48,14 @@ export class AuthAuthenticationService {
 
   public logIn(email: string, password: string): void {
     this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      let allData = this.db.database.ref('/users');
-      allData.on('value', (data: any) => {
+      let basePath = this.db.database.ref('/users');
+      basePath.on('value', (data: any) => {
         this.data1 = Object.keys(data.val()).map(key => {
           return {
             ...data.val()[key],
             push_key: key
           }
         });
-        // console.log('data1', this.data1);
         const data2 = this.data1.find((e: any) => e.email == email);
         localStorage.setItem('customerId', data2.push_key);
         if (data2.role === 'customer') {
@@ -66,36 +73,4 @@ export class AuthAuthenticationService {
       });
   }
 
-
-  // public addItems(itemName: string,price: string,returnTime:string): void {
-  //   let items = this.db.database.ref('/products/');
-  //   const item = {
-  //     itemName: '',
-  //     price: '',
-  //     returnTime: ''
-  //   }
-  //   items.push(item);
-  // }
-
-
-  // public updateProduct(product: any) {
-
-  // }
-
-
-  // public addToCart(): void {
-  //   let allData = this.db.database.ref('/users');
-  //   allData.on('value', (data: any) => {
-  //     this.data1 = Object.keys(data.val()).map(key => {
-  //       return {
-  //         ...data.val()[key],
-  //         push_key: key,
-
-  //       }
-  //     });
-  //     const data2 = this.data1.find((e: any) => e.push_key);
-  //     console.log('data2', data2.push_key);
-  //     console.log('data1 :>> ', this.data1);
-  //   });
-  // }
 }

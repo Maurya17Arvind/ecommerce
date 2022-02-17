@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="form-group m-3">
-                    <input type="text" placeholder="Enter Password" formControlName="password" class="form-control">
+                    <input type="password" placeholder="Enter Password" formControlName="password" class="form-control">
                     <div class="alert alert-danger mt-2"
                         *ngIf="fControl['password'].touched && fControl['password'].errors?.['required']">
                         Password is required
@@ -24,6 +24,21 @@
                         *ngIf="fControl['password'].dirty && fControl['password'].errors?.['minlength']">
                         Password is length 6
                     </div>
+                </div>
+                <div class="form-group m-3">
+                    <input type="text" placeholder="Enter Area" formControlName="area" class="form-control">
+                </div>
+                <div class="form-group m-3">
+                    <input type="text" placeholder="Enter Address" formControlName="address" class="form-control">
+                </div>
+                <div class="form-group m-3">
+                    <input type="text" placeholder="Enter Pin Code" formControlName="pinCode" class="form-control">
+                </div>
+                <div class="form-group m-3">
+                    <input type="text" placeholder="Enter Mobile No" formControlName="mobileNo" class="form-control">
+                </div>
+                <div class="form-group m-3">
+                    <input type="text" placeholder="Enter Your Name" formControlName="name" class="form-control">
                 </div>
                 <div class="form-group m-3 text-center">
                     <button class="btn btn-primary" type="submit" [disabled]="myForm.invalid">Sign Up</button>

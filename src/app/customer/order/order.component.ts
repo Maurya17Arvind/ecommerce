@@ -9,14 +9,12 @@ import { OrderService } from '../customer-service/order.service';
 })
 export class OrderComponent implements OnInit {
 
-  public orderDatas: any;
   public orders: any;
-  public customerOrder: any;
   public filterOrder: any;
   public productDetails: any;
-  public orderDetails: any;
   public orderData: any;
   public orderLength!: number;
+  public orderPath: any;
 
   constructor(private db: AngularFireDatabase, private orderService: OrderService) {
     const cartData = this.db.database.ref('/orders');
@@ -37,11 +35,17 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public getOrder(orderId: string) {
-    const orderData = this.db.database.ref('/orders/' + orderId);
-    orderData.on('value', (data: any) => {
+  public getOrder(orderId: string): void {
+    console.log('orderId', orderId)
+    this.orderPath = this.db.database.ref('/orders/' + orderId);
+    this.orderPath.on('value', (data: any) => {
       this.orderData = data.val().cartValue;
     });
-    console.log('this.orderData.length', this.orderData)
+    // console.log('this.orderData.length', this.orderData);
+  }
+
+  public cancelOrder(orderId: any): void {
+    this.orderPath = this.db.database.ref('/orders/' + orderId);
+    this.orderPath.remove();
   }
 }

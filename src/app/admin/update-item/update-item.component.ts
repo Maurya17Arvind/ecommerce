@@ -14,7 +14,7 @@ export class UpdateItemComponent implements OnInit {
   public myForm!: FormGroup;
   public key!: string;
   public updateProduct: any;
-  public updateData!: UpdateData;
+  public updateData: any;
 
   constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private db: AngularFireDatabase, private router: Router) {
     this.key = this.activatedRoute.snapshot.params['id']
@@ -35,7 +35,8 @@ export class UpdateItemComponent implements OnInit {
     this.myForm = this.fb.group({
       itemName: [this.updateData?.itemName || ''],
       price: [this.updateData?.price || ''],
-      returnTime: [this.updateData?.returnTime || '']
+      returnTime: [this.updateData?.returnTime || ''],
+      image: [this.updateData?.image || '']
     });
   }
   public updateItem(): void {

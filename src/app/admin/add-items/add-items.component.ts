@@ -19,7 +19,8 @@ export class AddItemsComponent implements OnInit {
     this.myForm = this.fb.group({
       itemName: '',
       price: '',
-      returnTime: ''
+      returnTime: '',
+      image: ''
     })
   }
 
@@ -31,9 +32,14 @@ export class AddItemsComponent implements OnInit {
     // this.price = this.myForm.value.price;
     // this.returnTime = this.myForm.value.returnTime
     // this.authAuthenticationService.addItems(this.itemName, this.price, this.returnTime)
-    let items = this.db.database.ref('/products/');
-    items.push(this.myForm.value);
-    console.log('items', items);
+    let items = this.db.database.ref('/products');
+    const products = {
+      itemName: this.myForm.value.itemName,
+      price: this.myForm.value.price,
+      returnTime: this.myForm.value.returnTime,
+      image: this.myForm.value.image
+    }
+    items.push(products);
     // this.toaster.success('Add item Successfuly...');
     this.myForm.reset();
   }

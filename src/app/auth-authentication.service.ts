@@ -28,6 +28,7 @@ export class AuthAuthenticationService {
             email: res.user?.multiFactor?.user?.email,
             role: 'admin'
           }
+          localStorage.setItem('emailId', email)
           const formData = {
             ...data,
             name: name,
@@ -57,17 +58,20 @@ export class AuthAuthenticationService {
           }
         });
         const data2 = this.data1.find((e: any) => e.email == email);
-        localStorage.setItem('customerId', data2.push_key);
         if (data2.role === 'customer') {
           this.router.navigate(['customer']);
+          // console.log('data2.push_key', data2.push_key)
+          localStorage.setItem('customerId', data2.push_key);
           // this.toaster.success('Login Successfully');
         }
         else {
           this.router.navigate(['admin']);
+          localStorage.setItem('customerId', data2.push_key);
           // this.toaster.success('Login Successfully');
         }
       });
     })
+
       .catch(err => {
         console.log('Something went wrong:', err.message);
       });

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddItemsComponent } from './add-items/add-items.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 import { UpdateItemComponent } from './update-item/update-item.component';
 import { ViewItemsComponent } from './view-items/view-items.component';
 
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'update-item/:id',
     component: UpdateItemComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'orders',

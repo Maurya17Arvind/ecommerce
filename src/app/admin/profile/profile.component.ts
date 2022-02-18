@@ -9,48 +9,45 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
+  public userData: any;
   public myForm!: FormGroup;
   public userPath: any;
-  public userData: any;
-  public addressForm!: FormGroup;
+  public hide: boolean = false;
 
   constructor(private db: AngularFireDatabase, private fb: FormBuilder) {
-
-    this.updateFormData();
-  }
-
-
-
-  ngOnInit(): void {
-    this.updateFormData();
-
-  }
-  public updateFormData(): void {
     this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
-    this.userPath.on('value', (userData: any) => {
-      this.userData = userData.val();
+    this.userPath.on('value', (data: any) => {
+      this.userData = data.val();
     });
 
     this.myForm = this.fb.group({
       name: [this.userData?.name || ''],
+      email: [this.userData?.email || ''],
       area: [this.userData?.area || ''],
       address: [this.userData?.address || ''],
       pinCode: [this.userData?.pinCode || ''],
-      mobileNo: [this.userData?.mobileNo || ''],
-      email: [this.userData?.email || '']
+      mobileNo: [this.userData?.mobileNo || '']
     });
+
   }
 
-  public updateName(): void {
-    const updateUserData = {
-      address: this.myForm.value.address,
-      area: this.myForm.value.area,
-      email: this.myForm.value.email,
-      mobileNo: this.userData.mobileNo,
-      name: this.myForm.value.name,
-      pinCode: this.myForm.value.pinCode,
-      role: this.userData.role
-    }
-    this.userPath.update(updateUserData);
+  ngOnInit(): void {
   }
+
+  public showUserData(): void {
+    this.hide = true;
+  }
+
+  public updateProfile(): void {
+    const updateProfileData = {
+      name: this.myForm.value.name,
+      email: this.myForm.value.email,
+      area: this.myForm.value.area,
+      address: this.myForm.value.address,
+      pinCode: this.myForm.value.pinCode,
+      mobileNo: this.myForm.value.mobileNo
+    }
+    this.userPath.update(updateProfileData);
+  }
+
 }

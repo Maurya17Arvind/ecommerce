@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row custom-bg-blue d-flex">
+        <div class="d-flex"><a routerLink="/admin/home"><i class="far fa-arrow-left mt-2 fs-3 text-black"></i></a>
+            <h2 class="ms-2">My Account</h2>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center m-3">
+        <div class="col-sm-4 custom-width card">
+            <div class="d-flex justify-content-center">
+                <img src="https://freesvg.org/img/abstract-user-flat-4.png" alt="profile image">
+            </div>
+            <div class="d-flex justify-content-center">
+                <p>{{userData?.name||''}}</p>
+                <p><i class="far fa-edit ms-2" (click)="showUserData()"></i></p>
+            </div>
+        </div>
+        <div class="card ms-2 col-sm-6" *ngIf="hide">
+            <form [formGroup]="myForm" class="m-3">
+                <div class="mb-3">
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your Name"
+                        formControlName="name">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your Email Id"
+                        formControlName="email">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your Area"
+                        formControlName="area">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your Address"
+                        formControlName="address">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your PinCode"
+                        formControlName="pinCode">
+                </div>
+                <div>
+                    <input type="text" class="form-control text-muted" placeholder="Enter Your Mobile No"
+                        formControlName="mobileNo">
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary" (click)="updateProfile()">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

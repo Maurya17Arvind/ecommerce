@@ -9,6 +9,7 @@ import { UpdateItemComponent } from './update-item/update-item.component';
 import { CoreModule } from '../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
     AddItemsComponent,
     ViewItemsComponent,
     UpdateItemComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

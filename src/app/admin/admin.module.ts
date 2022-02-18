@@ -10,6 +10,7 @@ import { CoreModule } from '../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminComponent } from './admin.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
     ViewItemsComponent,
     UpdateItemComponent,
     ProfileComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,

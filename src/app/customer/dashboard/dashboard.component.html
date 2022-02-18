@@ -3,7 +3,7 @@
         <div class="row card custom-card-hover d-flex flex-wrap m-3" *ngFor="let product of products; let i=index">
             <div class="col-md-12">
                 <div>
-                    <img class="custom-width" src="../assets/book1.jpg" alt="book Image">
+                    <img class="custom-width" src="{{product.image}}" alt="book Image">
                     <h5 class="card-title">{{product.itemName}}</h5>
                     <p class="card-text">{{product.price | currency:'INR'}}</p>
                 </div>

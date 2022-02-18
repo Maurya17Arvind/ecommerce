@@ -14,8 +14,8 @@
             </div>
         </div>
     </div>
-    <div class="card m-3 row d-flex justify-content-center" *ngIf="orderLength!=0">
-        <div class="col-md-12">
+    <div class="card m-3 d-flex justify-content-center" *ngIf="orderLength!=0">
+        <!-- <div class="col-md-12">
             <h3>Your Address</h3>
             <div *ngFor="let address of filterOrder" class="m-2">
                 <p>Your Name:- {{address.name}}</p>
@@ -26,30 +26,33 @@
                 <p>Order ID:- {{address.orderId}}</p>
             </div>
 
-        </div>
+        </div> -->
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
                 <h3>Your Order</h3>
-                <div *ngFor="let order of filterOrder; let i=index" class="d-flex m-3">
-                    <div class="col-sm-4">
+                <div *ngFor="let order of filterOrder; let i=index" class="m-3">
+                    <div class="col-sm-8">
                         Order:-{{i+1}}
                         <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
                     </div>
-                    <div>
-                        <a class="btn btn-primary" (click)="getOrder(order.orderId)">Get Ordered Product</a>
+                    <div class="d-flex justify-content-between mt-3 col-sm-8">
+                        <div>
+                            <a class="btn btn-primary" (click)="getOrder(order.orderId)">Get Ordered Product</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" (click)="cancelOrder(order.orderId)">Cancel Ordered</a>
+                        </div>
                     </div>
-                    <div>
-                        <!-- <a class="btn btn-primary" (click)="cancelOrder(order.orderId)">Cancel Ordered</a> -->
-                    </div>
+                    <hr>
                 </div>
             </div>
             <div class="col-md-6">
                 <h4>Product Details</h4>
                 <div *ngFor="let product of orderData" class="d-flex">
                     <div class="clo-sm-4 m-2">
-                        <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
+                        <img class="custom-width" src="{{product.image}}" alt="Product Image">
                     </div>
-                    <div class="col-sm-12 m-2">
+                    <div class="col-sm-4 m-2">
                         <p>Product Name:- {{product.itemName}}</p>
                         <p>Price:- {{product.price}}</p>
                         <p>Quantity:- {{product.qty}}</p>

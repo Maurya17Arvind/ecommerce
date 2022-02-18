@@ -18,21 +18,25 @@ export class CartComponent implements OnInit {
   public totalCart!: number;
   public orderForm!: FormGroup;
   public orders: any;
-  public filterOrder: any;
-  public address!: string;
-  public area!: string;
-  public pinCode!: string;
-  public filterCustomer: any;
+  public userPath: any;
+  public userData: any;
 
   constructor(private db: AngularFireDatabase, private fb: FormBuilder, private cartService: CartService) {
 
+
+    this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
+    this.userPath.on('value', (userData: any) => {
+      this.userData = userData.val();
+    });
+
     this.orderForm = this.fb.group({
-      area: [''],
-      address: '',
-      pinCode: '',
-      mobileNo: '',
-      name: ''
-    })
+      area: [this.userData?.area || ''],
+      address: [this.userData?.address || ''],
+      pinCode: [this.userData?.pinCode || ''],
+      mobileNo: [this.userData?.mobileNo || ''],
+      name: [this.userData?.name || '']
+    });
+
 
     const cartData = this.db.database.ref('/carts');
     cartData.on('value', (data: any) => {
@@ -48,12 +52,6 @@ export class CartComponent implements OnInit {
     });
 
     this.orders = this.cartService.getOrdersDetail();
-    // this.filterOrder = this.orders.filter((orderFilter: any) => orderFilter.userId == localStorage.getItem('customerId'))
-    //   this.filterOrder.filter((address: any) => {
-    //     this.address = address.address;
-    //     this.area = address.area;
-    //     this.pinCode = address.pinCode;
-    //   });
   }
 
   ngOnInit(): void {

@@ -36,10 +36,10 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void { }
 
   public getOrder(orderId: string): void {
-    console.log('orderId', orderId)
+    // console.log('orderId', orderId)
     this.orderPath = this.db.database.ref('/orders/' + orderId);
     this.orderPath.on('value', (data: any) => {
-      this.orderData = data.val().cartValue;
+      this.orderData = data.val()?.cartValue || '';
     });
     // console.log('this.orderData.length', this.orderData);
   }

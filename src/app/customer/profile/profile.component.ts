@@ -36,8 +36,7 @@ export class ProfileComponent implements OnInit {
       area: [this.userData?.area || ''],
       address: [this.userData?.address || ''],
       pinCode: [this.userData?.pinCode || ''],
-      mobileNo: [this.userData?.mobileNo || ''],
-      email: [this.userData?.email || '']
+      mobileNo: [this.userData?.mobileNo || '']
     });
   }
 
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
     const updateUserData = {
       address: this.myForm.value.address,
       area: this.myForm.value.area,
-      email: this.myForm.value.email,
+      email: this.userData.email,
       mobileNo: this.userData.mobileNo,
       name: this.myForm.value.name,
       pinCode: this.myForm.value.pinCode,

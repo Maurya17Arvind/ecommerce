@@ -1,19 +1,45 @@
 <div class="container-flude">
-    <div class="container-fluid d-flex flex-wrap">
-        <div class="row card custom-card-hover d-flex flex-wrap m-3" *ngFor="let product of products; let i=index">
-            <div class="col-md-12">
-                <div>
-                    <img class="custom-width" src="{{product.image}}" alt="book Image">
-                    <h5 class="card-title">{{product.itemName}}</h5>
-                    <p class="card-text">{{product.price | currency:'INR'}}</p>
-                </div>
-                <div class="d-flex justify-content-between mb-3">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner custom-slider-width">
+            <div class="carousel-item active custom-slider-width">
+                <img src="../assets/image.jpeg " class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/image2.jpeg " class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item custom-slider-width">
+                <img src="../assets/image3.jpeg " class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="card m-3">
+        <div class="container-fluid d-flex flex-wrap">
+            <div class="row card custom-card-hover d-flex flex-wrap m-2 shadow p-3 mb-5 bg-body rounded"
+                *ngFor="let product of products; let i=index">
+                <div class="col-md-12">
                     <div>
-                        <a class="btn btn-primary" [routerLink]="['/customer/product-details/'+product.push_key]">View
-                            Details</a>
+                        <img class="custom-width" src="{{product.image}}" alt="book Image">
+                        <h5 class="card-title">{{product.itemName}}</h5>
+                        <p class="card-text">{{product.price | currency:'INR'}}</p>
                     </div>
-                    <div>
-                        <a class="btn btn-outline-primary" (click)="addToCart(product.push_key)">Add To Cart</a>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <a class="btn btn-primary" [routerLink]="['/customer/product-details/'+product.push_key]">
+                                View Details</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-outline-primary" (click)="addToCart(product.push_key)">Add To Cart</a>
+                        </div>
                     </div>
                 </div>
             </div>

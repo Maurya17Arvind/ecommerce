@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pending-orders',
@@ -11,7 +12,7 @@ export class PendingOrdersComponent implements OnInit {
   public orderDatas: any;
   public orders: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private toaster: ToastrService) {
     const cartData = this.db.database.ref('/orders');
     cartData.on('value', (data: any) => {
       this.orders = Object.keys(data?.val() || '').map(key => {
@@ -20,7 +21,8 @@ export class PendingOrdersComponent implements OnInit {
           orderId: key
         }
       });
-    })
+      this.toaster.success("Show Orders")
+    });
   }
 
   ngOnInit(): void {
@@ -31,9 +33,7 @@ export class PendingOrdersComponent implements OnInit {
     basePath.on('value', (data: any) => {
       this.orderDatas = data.val().cartValue;
     });
-    // this.orderDatas.filter((data: any) => {
-    //   console.log('orderData', data)
-    // });
+    this.toaster.success("Show All Orders Details");
   }
 
 }

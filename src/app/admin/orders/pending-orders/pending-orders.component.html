@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let order of orders">
-                <th scope="row">{{order.address}}</th>
+                <td scope="row">{{order.address}}</td>
                 <td>{{order.area}}</td>
                 <td>{{order.orderId}}</td>
                 <td>{{order.pinCode}}</td>
@@ -32,10 +32,13 @@
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Orders</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" *ngFor="let order of orderDatas">
+                    <div class="custome-width">
+                        <img src="{{order.image}}" alt="Product Image">
+                    </div>
                     <p>Product Name:-{{order.itemName}}</p>
                     <p>Quantity:-{{order.qty}}</p>
                     <p>Price:-{{order.price}}</p>

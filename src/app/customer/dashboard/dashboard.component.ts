@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.cartService.checkProductInCart(productArray.product_id, productArray);
+    this.toast.success("Add To Cart successfully");
   }
 
 

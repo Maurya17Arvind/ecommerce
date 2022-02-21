@@ -1,4 +1,7 @@
 <div class="container-flude">
+    <div class="form-group m-3">
+        <input type="text" class="form-control" placeholder="Search By Product Name" [(ngModel)]="searchProduct">
+    </div>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner custom-slider-width">
             <div class="carousel-item active custom-slider-width">
@@ -23,7 +26,6 @@
         </button>
     </div>
     <div class="card m-3">
-        <!-- <div><input type="text" placeholder="Search" [(ngModel)]="searchProduct"></div> -->
         <div class="container-fluid d-flex flex-wrap">
             <div class="row card custom-card-hover d-flex flex-wrap m-2 shadow p-3 mb-5 bg-body rounded"
                 *ngFor="let product of products |filter:searchProduct ">

@@ -40,7 +40,7 @@ export class AddItemsComponent implements OnInit {
       image: this.myForm.value.image
     }
     items.push(products);
-    // this.toaster.success('Add item Successfuly...');
+    this.toaster.success('Add item Successfuly...');
     this.myForm.reset();
   }
 

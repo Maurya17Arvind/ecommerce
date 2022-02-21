@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-items',
@@ -12,7 +13,7 @@ export class ViewItemsComponent implements OnInit {
   public products: any;
   public detProduct: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private toastr: ToastrService) {
     let allProducts = this.db.database.ref('/products');
     allProducts.on('value', (data: any) => {
       this.products = Object.keys(data.val()).map(key => {
@@ -21,6 +22,7 @@ export class ViewItemsComponent implements OnInit {
           push_key: key
         }
       });
+      this.toastr.success("Show All Products");
     });
   }
 
@@ -31,5 +33,6 @@ export class ViewItemsComponent implements OnInit {
   public deleteProduct(key: string) {
     this.detProduct = this.db.database.ref('/products/' + key);
     this.detProduct.remove();
+    this.toastr.success("Delete Product");
   }
 }

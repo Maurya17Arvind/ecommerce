@@ -15,12 +15,13 @@
         <tbody>
             <tr *ngFor="let product of products; let i=index">
                 <td>{{i+1}}</td>
+                <td class="custom-width">
+                    <img src="{{product.image}}" alt="Product Image">
+                </td>
                 <td>{{product.push_key}}</td>
                 <td>{{product.itemName}}</td>
                 <td>{{product.price}}</td>
                 <td>{{product.returnTime}}</td>
-                <!-- <td>{{product.image}}</td> -->
-                <!-- <td><img src="{{product.image}}" alt=""></td> -->
                 <td><a [routerLink]="['/admin/update-item/'+product.push_key]" class="text-warning"><i
                             class="far fa-edit"></i></a></td>
                 <td><a class="text-danger"><i class="fas fa-trash-alt"

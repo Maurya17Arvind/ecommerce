@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +15,14 @@ export class ProfileComponent implements OnInit {
   public userPath: any;
   public hide: boolean = false;
 
-  constructor(private db: AngularFireDatabase, private fb: FormBuilder) {
+  constructor(
+    private db: AngularFireDatabase,
+    private fb: FormBuilder,
+    private toastr: ToastrService) {
     this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
     this.userPath.on('value', (data: any) => {
       this.userData = data.val();
+      this.toastr.success("Your Profile");
     });
 
     this.myForm = this.fb.group({

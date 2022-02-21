@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -29,7 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminModule,
     ToastrModule.forRoot()
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -23,9 +23,10 @@
         </button>
     </div>
     <div class="card m-3">
+        <!-- <div><input type="text" placeholder="Search" [(ngModel)]="searchProduct"></div> -->
         <div class="container-fluid d-flex flex-wrap">
             <div class="row card custom-card-hover d-flex flex-wrap m-2 shadow p-3 mb-5 bg-body rounded"
-                *ngFor="let product of products; let i=index">
+                *ngFor="let product of products |filter:searchProduct ">
                 <div class="col-md-12">
                     <div>
                         <img class="custom-width" src="{{product.image}}" alt="book Image">

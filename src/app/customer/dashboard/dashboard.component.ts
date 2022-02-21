@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../customer-service/cart.service';
 import { ProductService } from '../customer-service/product.service';
 
@@ -16,10 +17,11 @@ export class DashboardComponent implements OnInit {
   public productsData: any;
   public finalProductData: any;
   public cartId: any;
-  allProducts: any;
+  public allProducts: any;
+  public searchProduct!: string;
 
   constructor(
-    private productService: ProductService,
+    private toast: ToastrService,
     private db: AngularFireDatabase,
     private cartService: CartService
   ) {
@@ -53,7 +55,6 @@ export class DashboardComponent implements OnInit {
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.cartService.checkProductInCart(productArray.product_id, productArray);
-    // this.cartService.addToCart(productArray);
   }
 
 

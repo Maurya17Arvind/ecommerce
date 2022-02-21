@@ -59,7 +59,6 @@ export class CartService {
       const basePath = this.db.database.ref('/carts/' + this.ownCart.cartId);
       basePath.on('value', (value: any) => {
         this.updateData = value.val();
-        // console.log('value.val()', this.updateData)
       })
       const updateQty = {
         customerID: this.ownCart.customerID,
@@ -87,6 +86,7 @@ export class CartService {
     }
 
   }
+
   public getOrdersDetail(): void {
     this.orderData.on('value', (data: any) => {
       Object.keys(data?.val() || '').map(key => {

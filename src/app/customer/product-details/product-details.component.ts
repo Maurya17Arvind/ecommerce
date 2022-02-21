@@ -44,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.cartService.checkProductInCart(this.finalProductData.product_id, productArray);
+    // this.cartService.addToCart(productArray);
   }
 
 

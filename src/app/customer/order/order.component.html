@@ -27,11 +27,11 @@
             </div>
 
         </div> -->
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center m-3">
             <div class="col-md-6">
                 <h3>Your Order</h3>
                 <div *ngFor="let order of filterOrder; let i=index" class="m-3">
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         Order:-{{i+1}}
                         <img class="custom-width" src="../assets/book1.jpg" alt="Product Image">
                     </div>
@@ -43,16 +43,16 @@
                             <a class="btn btn-primary" (click)="cancelOrder(order.orderId)">Cancel Ordered</a>
                         </div>
                     </div>
-                    <hr>
                 </div>
+                <hr>
             </div>
             <div class="col-md-6">
                 <h4>Product Details</h4>
-                <div *ngFor="let product of orderData" class="d-flex">
+                <div *ngFor="let product of orderData" class="d-flex card flex-row justify-content-between mt-2">
                     <div class="clo-sm-4 m-2">
-                        <img class="custom-width" src="{{product.image}}" alt="Product Image">
+                        <img class="custom-width" src={{product.image}} alt="Product Image">
                     </div>
-                    <div class="col-sm-4 m-2">
+                    <div class="col-sm-6 m-2">
                         <p>Product Name:- {{product.itemName}}</p>
                         <p>Price:- {{product.price}}</p>
                         <p>Quantity:- {{product.qty}}</p>

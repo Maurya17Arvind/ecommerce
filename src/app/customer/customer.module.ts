@@ -11,6 +11,7 @@ import { CustomerComponent } from './customer.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
+import { FilterPipe } from './Search/filter.pipe';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { OrderComponent } from './order/order.component';
     CustomerComponent,
     ProfileComponent,
     OrderComponent,
+    FilterPipe,
   ],
   imports: [
     CommonModule,

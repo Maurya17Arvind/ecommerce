@@ -3,7 +3,10 @@
         <div class="card col-sm-6">
             <h1 class="text-center">LogIn</h1>
             <form [formGroup]="myForm" (ngSubmit)="signIn()">
-                <div class="form-group m-3">
+                <div class="form-group input-group">
+                    <span class="input-group-text">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
                     <input type="text" placeholder="Enter Email Address" formControlName="email" class="form-control">
                     <div class="alert alert-danger mt-2"
                         *ngIf="fControl['email'].touched && fControl['email'].errors?.['required']">
@@ -14,8 +17,26 @@
                         Email is not valid
                     </div>
                 </div>
-                <div class="form-group m-3">
-                    <input type="password" placeholder="Enter Password" formControlName="password" class="form-control">
+                <div class="form-group input-group mt-2">
+                    <!-- <input type="password" placeholder="Enter Password" formControlName="password" class="form-control"> -->
+                    <input [type]="fieldTextType ? 'text' : 'password'" placeholder="Enter Password"
+                        formControlName="password" class="form-control">
+                    <span class="input-group-text">
+                        <i [ngClass]="{
+                            'fas fa-eye-slash': !fieldTextType,
+                            'fa fa-eye': fieldTextType
+                            }" (click)="toggleFieldTextType()">
+                        </i>
+                    </span>
+                    <!-- <div class="input-group-append">
+                        <span class="input-group-text mx-3">
+                            <i [ngClass]="{
+                              'fas fa-eye-slash': !fieldTextType,
+                              'fa fa-eye': fieldTextType
+                            }" (click)="toggleFieldTextType()">
+                            </i>
+                        </span>
+                    </div> -->
                     <div class="alert alert-danger mt-2"
                         *ngIf="fControl['password'].touched && fControl['password'].errors?.['required']">
                         Password is required

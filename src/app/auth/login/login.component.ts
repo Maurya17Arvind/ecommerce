@@ -8,9 +8,11 @@ import { AuthAuthenticationService } from 'src/app/auth-authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   public myForm!: FormGroup;
   public email!: string;
   public password!: string;
+  public fieldTextType!: boolean;
 
   constructor(private fb: FormBuilder, private authenticationService: AuthAuthenticationService) {
     this.myForm = this.fb.group({
@@ -31,6 +33,11 @@ export class LoginComponent implements OnInit {
 
   get fControl() {
     return this.myForm.controls;
+  }
+
+
+  public toggleFieldTextType(): void {
+    this.fieldTextType = !this.fieldTextType;
   }
 }
 

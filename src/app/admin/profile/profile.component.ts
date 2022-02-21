@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit {
 
     this.myForm = this.fb.group({
       name: [this.userData?.name || ''],
-      email: [this.userData?.email || ''],
       area: [this.userData?.area || ''],
       address: [this.userData?.address || ''],
       pinCode: [this.userData?.pinCode || ''],
@@ -46,13 +45,15 @@ export class ProfileComponent implements OnInit {
   public updateProfile(): void {
     const updateProfileData = {
       name: this.myForm.value.name,
-      email: this.myForm.value.email,
+      email: this.userData.email,
       area: this.myForm.value.area,
       address: this.myForm.value.address,
       pinCode: this.myForm.value.pinCode,
       mobileNo: this.myForm.value.mobileNo
     }
     this.userPath.update(updateProfileData);
+    this.toastr.success("Update Profile Successfully");
+    this.hide = false;
   }
 
 }

@@ -62,12 +62,12 @@ export class AuthAuthenticationService {
           this.router.navigate(['customer']);
           // console.log('data2.push_key', data2.push_key)
           localStorage.setItem('customerId', data2.push_key);
-          // this.toaster.success('Login Successfully');
+          this.toaster.success('Login Successfully');
         }
         else {
           this.router.navigate(['admin']);
           localStorage.setItem('customerId', data2.push_key);
-          // this.toaster.success('Login Successfully');
+          this.toaster.success('Login Successfully');
         }
       });
     })

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../customer-service/cart.service';
-import { ProductService } from '../customer-service/product.service';
 
 @Component({
   selector: 'app-dashboard',

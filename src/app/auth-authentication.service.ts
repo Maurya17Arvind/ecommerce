@@ -13,9 +13,13 @@ export class AuthAuthenticationService {
   // public userData!: Observable<firebase.User>;
   public userData: Observable<any>;
   public data1: any;
-  public item: string[] = [];
 
-  constructor(private angularFireAuth: AngularFireAuth, private db: AngularFireDatabase, private toaster: ToastrService, private router: Router) {
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private toaster: ToastrService,
+    private router: Router
+  ) {
     this.userData = angularFireAuth.authState;
   }
 
@@ -26,7 +30,7 @@ export class AuthAuthenticationService {
           const usersPath = this.db.database.ref('/users');
           const data = {
             email: res.user?.multiFactor?.user?.email,
-            role: 'admin'
+            role: 'customer'
           }
           localStorage.setItem('emailId', email)
           const formData = {
@@ -42,7 +46,7 @@ export class AuthAuthenticationService {
       }
     })
       .catch((error) => {
-        console.log('error.message', error.message);
+        this.toaster.error(error.message);
       });
   }
 
@@ -60,7 +64,6 @@ export class AuthAuthenticationService {
         const data2 = this.data1.find((e: any) => e.email == email);
         if (data2.role === 'customer') {
           this.router.navigate(['customer']);
-          // console.log('data2.push_key', data2.push_key)
           localStorage.setItem('customerId', data2.push_key);
           this.toaster.success('Login Successfully');
         }
@@ -73,7 +76,7 @@ export class AuthAuthenticationService {
     })
 
       .catch(err => {
-        console.log('Something went wrong:', err.message);
+        this.toaster.error(err.message);
       });
   }
 

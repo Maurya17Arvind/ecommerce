@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../customer-service/cart.service';
 import { ProductService } from '../customer-service/product.service';
 
@@ -19,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private db: AngularFireDatabase,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastr: ToastrService
   ) {
 
 
@@ -44,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
       finalPrice: this.finalProductData.price * this.finalProductData.qty
     };
     this.cartService.checkProductInCart(this.finalProductData.product_id, productArray);
+    this.toastr.success("Add to cart successfully");
     // this.cartService.addToCart(productArray);
   }
 

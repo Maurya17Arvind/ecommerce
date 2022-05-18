@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../customer-service/cart.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { CartService } from '../customer-service/cart.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, DoCheck {
 
   public carts: any;
   public filterCart: any;
@@ -21,21 +23,27 @@ export class CartComponent implements OnInit {
   public userPath: any;
   public userData: any;
 
-  constructor(private db: AngularFireDatabase, private fb: FormBuilder, private cartService: CartService) {
+  constructor(
+    private db: AngularFireDatabase,
+    private fb: FormBuilder,
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private titleService:Title
+  ) {
 
+    // this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
+    // this.userPath.on('value', (userData: any) => {
+    //   this.userData = userData.val();
+    // });
 
-    this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
-    this.userPath.on('value', (userData: any) => {
-      this.userData = userData.val();
-    });
-
-    this.orderForm = this.fb.group({
-      area: [this.userData?.area || ''],
-      address: [this.userData?.address || ''],
-      pinCode: [this.userData?.pinCode || ''],
-      mobileNo: [this.userData?.mobileNo || ''],
-      name: [this.userData?.name || '']
-    });
+    // this.orderForm = this.fb.group({
+    //   area: [this.userData?.area || ''],
+    //   address: [this.userData?.address || ''],
+    //   pinCode: [this.userData?.pinCode || ''],
+    //   mobileNo: [this.userData?.mobileNo || ''],
+    //   name: [this.userData?.name || '']
+    // });
+    this.addressData();
 
 
     const cartData = this.db.database.ref('/carts');
@@ -48,6 +56,7 @@ export class CartComponent implements OnInit {
       });
       this.filterCart = this.carts.filter((e: any) => e.customerID == localStorage.getItem('customerId'));
       this.totalCart = this.filterCart.length;
+      // this.toastr.success("View Cart Product");
       this.getOrderPrice();
     });
 
@@ -55,7 +64,26 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Your Cart Product.")
     this.getOrderPrice();
+  }
+
+  ngDoCheck(): void {
+    this.addressData();
+  }
+  public addressData(): void {
+    this.userPath = this.db.database.ref('/users/' + localStorage.getItem('customerId'));
+    this.userPath.on('value', (userData: any) => {
+      this.userData = userData.val();
+    });
+
+    this.orderForm = this.fb.group({
+      area: [this.userData?.area || ''],
+      address: [this.userData?.address || ''],
+      pinCode: [this.userData?.pinCode || ''],
+      mobileNo: [this.userData?.mobileNo || ''],
+      name: [this.userData?.name || '']
+    });
   }
 
   public getOrderPrice(): void {
@@ -70,6 +98,7 @@ export class CartComponent implements OnInit {
   public deleteCart(key: string) {
     this.detProduct = this.db.database.ref('/carts/' + key);
     this.detProduct.remove();
+    this.toastr.success("Delete Cart Item Successfully");
   }
 
 
@@ -96,6 +125,7 @@ export class CartComponent implements OnInit {
         qty: this.changedCartData.qty + 1,
       }
       refPath.update(dataObject);
+      this.toastr.success('Added Product Quantity Successfully');
     }
     else {
       const dataObject = {
@@ -104,6 +134,7 @@ export class CartComponent implements OnInit {
         qty: this.changedCartData.qty - 1
       }
       refPath.update(dataObject);
+      this.toastr.success('Remove Product Quantity Successfully');
     }
   }
 
@@ -118,5 +149,6 @@ export class CartComponent implements OnInit {
     }
     address.push(orderData);
     this.cartService.clearCart();
+    this.toastr.success("Order Successfully");
   }
 }

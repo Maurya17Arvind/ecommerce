@@ -2,6 +2,7 @@
     <div class="row m-3 d-flex justify-content-center">
         <div class="col-sm-6 card">
             <h1 class="text-center">Sign Up</h1>
+            <a routerLink="/login" class="text-center">Have an account?</a>
             <form [formGroup]="myForm" (ngSubmit)="signUp()">
                 <div class="form-group m-3">
                     <input type="text" placeholder="Enter Email Address" formControlName="email" class="form-control">

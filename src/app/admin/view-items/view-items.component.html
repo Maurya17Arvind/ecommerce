@@ -8,6 +8,7 @@
                 <th scope="col">Sr No.</th>
                 <th scope="col">Product Id</th>
                 <th scope="col">ItemName</th>
+                <th scope="col">Image</th>
                 <th scope="col">Price</th>
                 <th scope="col">Return Time</th>
             </tr>
@@ -15,11 +16,11 @@
         <tbody>
             <tr *ngFor="let product of products; let i=index">
                 <td>{{i+1}}</td>
+                <td>{{product.push_key}}</td>
+                <td>{{product.itemName}}</td>
                 <td class="custom-width">
                     <img src="{{product.image}}" alt="Product Image">
                 </td>
-                <td>{{product.push_key}}</td>
-                <td>{{product.itemName}}</td>
                 <td>{{product.price}}</td>
                 <td>{{product.returnTime}}</td>
                 <td><a [routerLink]="['/admin/update-item/'+product.push_key]" class="text-warning"><i

@@ -125,7 +125,7 @@
                     </div>
                     <div class="col-sm-6">
                         <p>{{fullBillAmount | currency:'INR'}}</p>
-                        <p class="text-success">Free</p>
+                        <p class="text-success">{{fullBillAmount > 500 ? 'Free' : 40}}</p>
                     </div>
                     <p></p>
                 </div>
@@ -134,7 +134,7 @@
                         <p>Grand Total</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>{{fullBillAmount | currency:'INR'}}</p>
+                        <p>{{(fullBillAmount > 500) ? (fullBillAmount | currency:'INR')  :(fullBillAmount + 40 | currency:'INR')}}</p>
                     </div>
                 </div>
             </div>
